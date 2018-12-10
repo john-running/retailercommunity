@@ -1,5 +1,16 @@
 a {
     color: rgba(10,85, 157, 1);
+    text-decoration: underline;
+}
+
+a.active {
+    color: rgba(237,52, 49);
+    text-decoration: underline;
+}
+
+a:hover {
+    color: rgba(237,52, 49);
+    text-decoration: underline;
 }
 
 h4 {
@@ -17,9 +28,12 @@ h4 {
 .btn-outline-primary {
     color: rgba(10,85, 157, 1);
     background-color: #ffffff;
+    text-decoration: none;
+
 }
 
-.btn-outline-primary:hover {
+.btn-outline-primary:hover,
+.btn-outline-primary.active{
     background-color: rgba(10,85, 157, 1);
 }
 
@@ -40,6 +54,8 @@ h4 {
     color: rgba(10,85,157, 1);
     font-weight: bold;
     padding: 1rem 1rem;
+    text-decoration: none;
+
 }
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,
