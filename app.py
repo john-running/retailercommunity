@@ -88,7 +88,7 @@ def write_review():
         update_purchase = Purchase.query.filter_by(product_id = form.product_id.data).filter_by(user_id = current_user.id).first()
         update_purchase.hasreview = 1
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('thanks'))
     return render_template('writereview.html', form=form, product=product)
 
 @app.route('/moderatorfeedback', methods=['GET', 'POST'])
@@ -118,6 +118,10 @@ def profile():
         reviewpoints = reviewpoints + rev.product.reviewpoints
     return render_template('profile.html', profile=profile,reviewcount = reviewcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
 
+@app.route('/thanks')
+@login_required
+def thanks():
+    return render_template('thanks.html')
 
 
 
