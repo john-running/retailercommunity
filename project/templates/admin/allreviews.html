@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{url_for('admin')}}">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+  </ol>
+<div class="jumbotron">
+  <h4>User Reviews</h4>
+  <br>
+  <strong>Filter by:</strong> <a href="{{url_for('all_reviews')}}?status=All">All</a> | <a href="{{url_for('all_reviews')}}?status=Pending">Pending</a>| <a href="{{url_for('all_reviews')}}?status=Approved">Approved</a> | <a href="{{url_for('all_reviews')}}?status=Rejected">Rejected</a><br><br>
+  <div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+      <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Product</th>
+        <th scope="col">Reviewer</th>
+        <th scope="col">Reviewer Rating</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for rev in reviews  %}
+        <tr>
+          <th scope="row">{{rev.id}}</th>
+          <td>{{rev.product.name}}</td>
+          <td>{{rev.user.nickname}}</td>
+          <td><img src="/static/{{rev.starrating}}-Star.png" alt="star rating" height=15></td>
+          <td><a href="moderatereview?id={{rev.id}}">{{rev.status}}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+{% endblock %}

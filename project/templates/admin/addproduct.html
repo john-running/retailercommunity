@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{{url_for('admin')}}">Admin</a></li>
+  <li class="breadcrumb-item"><a href="{{url_for('list_products')}}">Products</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+</ol>
+<div class="jumbotron">
+<h4>Add Product</h4>
+<form method="post">
+  {{form.hidden_tag()}}
+  <div class="form-group">
+    {{form.name.label}}<br>
+    {{form.name}}
+  </div>
+  <div class="form-group">
+    {{form.sku.label}}<br>
+    {{form.sku}}
+  </div>
+  <div class="form-group">
+    {{form.image.label}}<br>
+    {{form.image}}
+  </div>
+  <div class="form-group">
+    {{form.price.label}}<br>
+    {{form.price}}
+  </div>
+  <div class="form-group">
+    {{form.producturl.label}}<br>
+    {{form.producturl}}
+  </div>
+  <div class="form-group">
+    {{form.description.label}}<br>
+    {{form.description}}
+  </div>
+  <div class="form-group">
+    {{form.reviewpoints.label}}<br>
+    {{form.reviewpoints}}
+  </div>
+  <div class="form-group">
+    {{form.submit()}}
+  </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{{url_for('admin')}}">Admin</a></li>
+  <li class="breadcrumb-item"><a href="{{url_for('all_users')}}">Users</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Purchases</li>
+</ol>
+<div class="jumbotron">
+  <h4>User Purchases</h4>
+  <p><strong>User:</strong> {{user.nickname}}</p>
+  <ul>
+    {% for purch in purchases  %}
+    <li class="list-group-item"><img src="{{purch.product.image}}" width="200">{{purch.product.name}}</li>
+    {% endfor %}
+  </ul>
+  <a href="products?uid={{user.id}}" class="btn btn-outline-primary">Add Purchase</a>
+
+</div>
+{% endblock %}

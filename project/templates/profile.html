@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h4>My Profile</h4>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Email Address:</strong> {{profile.email}}</li>
+            <li class="list-group-item"><strong>Name:</strong> {{profile.fname}}&nbsp;{{profile.lname}}</li>
+            <li class="list-group-item"><strong>Nick Name:</strong> {{profile.nickname}}</li>
+            <li class="list-group-item"><strong>Rewards ID:</strong> {{profile.rewardsid}}</li>
+        </ul>
+        <br>
+        <a class="btn btn-outline-primary" href="#" role="button">Edit</a>
+        <br><br><br>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Password:</strong> ****************</li>
+        </ul>
+        <br>
+        <a class="btn btn btn-outline-primary" href="#" role="button">Edit</a>
+        <br><br><br>
+        <h4>My Points</h4>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" Align="center">{{reviewcount}}</h5>
+                <p class="card-text" Align="center">Total Reviews</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" Align="center">{{approvedreviewcount}}</h5>
+                <p class="card-text" Align="center">Approved Reviews</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" Align="center">{{reviewpoints}}</h5>
+                <p class="card-text" Align="center">Rewards Points Earned</p>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+{% endblock %}

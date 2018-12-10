@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="jumbotron">
+  <h4>Sign In</h4>
+  <form method="post">
+    <div class="form-group">
+      {{form.hidden_tag()}}
+      {{form.email.label}}<br>
+      {{form.email}}
+      <small id="errortext" class="text-danger">
+       {% for message in form.email.errors %}
+           {{ message }}
+        {% endfor %}
+     </small>
+    </div>
+    <div class="form-group">
+      {{form.password.label}}<br>
+      {{form.password}}
+      <small id="errortext" class="text-danger">
+       {% for message in form.password.errors %}
+           {{ message }}
+        {% endfor %}
+     </small>
+    </div>
+    {{form.submit()}}
+  </form>
+  <br><br>
+  <p>Not signed up yet? <a href="{{url_for('register')}}">Register here.</a></p>
+  <p><a href="#">Forgot Password?</a></p>
+  </div>
+
+{% endblock %}

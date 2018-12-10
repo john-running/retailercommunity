@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{url_for('admin')}}">Admin</a></li>
+    <li class="breadcrumb-item"><a href="{{url_for('all_reviews')}}">Reviews</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Moderate review</li>
+  </ol>
+  <div class="jumbotron">
+  <h4>Moderate Review</h4>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{review.product.name}}</h5>
+          <p class="card-text"><div class="col-sm-4"><img src="{{review.product.image}}" width="65%" align="left"></div><h5>Review:</h5>{{review.heading}}<br><img src="/static/{{review.starrating}}-Star.png" alt="" height="15"> <br><br>{{review.description}}<br><br><strong>Status:</strong> {{review.status}}</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  <br><br>
+  <form method="post">
+    {{form.hidden_tag()}}
+    <div class="form-group">
+    {{form.feedback.label}}<br>
+    {{form.feedback(cols=40,rows=10)}}<br>
+    </div>
+    <div class="form-group">
+      {% for subfield in form.status %}
+        {{ subfield }}&nbsp;{{ subfield.label }}&nbsp;&nbsp;&nbsp;
+      {% endfor %}
+      <br>
+    </div>
+    {{form.review_id}}
+    {{form.submit()}}
+  </form>
+{% endblock %}
