@@ -19,10 +19,10 @@ body {
 
 
 .jumbotron-cover{
-  background-image: url(bread-brunch-candle.jpg);
+  background-image: url(splash.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 650px;
+  height: 350px;
 }
 a {
     color: rgba(10,85, 157, 1);
@@ -41,6 +41,14 @@ a:hover {
 
 h4 {
     color: rgba(10,85, 157, 1);
+}
+
+.h1-home{
+    padding: 1.25rem;
+    font-weight: 700;
+    font-size: 4em;
+    color: #ffffff;
+    line-height: 60px
 }
 
 .table,
