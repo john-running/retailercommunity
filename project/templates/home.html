@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="jumbotron">
     {% if current_user.is_authenticated %}
         {% if purchases %}
+        <div class="jumbotron">
             <h4>Hi {{current_user.nickname}},</h4>
             <p>Here's the next product we'd love for you to review:</p>
             <div class="row">
@@ -49,9 +49,20 @@
             </div>
 
     {% else %}
-        <h2>Welcome to Tesco Reviews Community Beta</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Please <a href="{{url_for('login')}}">sign in</a> or <a href="{{url_for('register')}}">register</a> to get started.</p>
+      <div class="jumbotron-cover">
+        <br><br><br><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <h4>Welcome to Tesco Reviews Community Beta</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Please <a href="{{url_for('login')}}">sign in</a> or <a href="{{url_for('register')}}">register</a> to get started.</p>
+              </div>
+            </div>
+          </div>
+
+
     {%endif%}
   </div>
 {% endblock %}

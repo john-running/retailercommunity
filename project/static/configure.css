@@ -1,3 +1,9 @@
+.jumbotron-cover{
+  background-image: url(bread-brunch-candle.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 650px;
+}
 a {
     color: rgba(10,85, 157, 1);
     text-decoration: underline;
@@ -19,8 +25,7 @@ h4 {
 
 .table,
 .list-group,
-.card,
-.jumbotron {
+.card, {
     color: rgba(10,85, 157, 1);
 }
 
