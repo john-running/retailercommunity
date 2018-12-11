@@ -3,7 +3,7 @@
   <div class="jumbotron">
   <h4>Write Review</h4>
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-lg-10">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{product.name}}</h5>
@@ -14,34 +14,50 @@
     </div>
   <br><br>
   <h5>Your Review</h5>
-  <form method="post">
-    {{form.hidden_tag()}}
 
-    <div class="form-group">
-    Star Rating<br>
-    <div id="rateYo"></div>
-    <br>
-    {{form.heading.label}}<br>
-    {{form.heading(class_='form-control')}}
-        <small id="errortext" class="text-danger">
-         {% for message in form.heading.errors %}
-             {{ message }}
-          {% endfor %}
-       </small>
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="card">
+        <div class="card-body">
+          <form method="post">
+            {{form.hidden_tag()}}
+
+            <div class="form-group">
+            Star Rating<br>
+            <div id="rateYo"></div>
+            <br>
+            {{form.heading.label}}<br>
+            {{form.heading(class_='form-control')}}
+                <small id="errortext" class="text-danger">
+                 {% for message in form.heading.errors %}
+                     {{ message }}
+                  {% endfor %}
+               </small>
+            </div>
+            <div class="form-group">
+              {{form.description.label}}<br>{{form.description(class_='form-control')}}
+              <small id="errortext" class="text-danger">
+              {% for message in form.description.errors %}
+                  {{ message }}
+               {% endfor %}
+               </small>
+            </div>
+
+            {{form.starrating}}
+            {{form.product_id}}
+            {{form.submit(class_='btn btn-outline-primary')}}
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      {{form.description.label}}<br>{{form.description(class_='form-control')}}
-      <small id="errortext" class="text-danger">
-      {% for message in form.description.errors %}
-          {{ message }}
-       {% endfor %}
-       </small>
     </div>
 
-    {{form.starrating}}
-    {{form.product_id}}
-    {{form.submit(class_='btn btn-outline-primary')}}
-  </form>
+
+
+
+
+
+
 
   <script type="text/javascript">
   $(function () {
