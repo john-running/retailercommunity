@@ -22,7 +22,7 @@ body {
   background-image: url(splash.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 350px;
+  height: 360px;
 }
 a {
     color: rgba(10,85, 157, 1);
@@ -46,7 +46,7 @@ h4 {
 .h1-home{
     padding: 1.25rem;
     font-weight: 700;
-    font-size: 4em;
+    font-size: 3.6em;
     color: #ffffff;
     line-height: 60px
 }
