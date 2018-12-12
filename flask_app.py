@@ -141,7 +141,7 @@ def forgot_password():
             from_email = Email("do.not.reply@retailercommunity.com")
             to_email = Email(user.email)
             subject = "Forgot Password Email from Tesco Retail Reviews"
-            urlstring = "http://http://tesco.retailercommunity.com/resetpassword?id=" + user.password_hash + "&email="+user.email
+            urlstring = "http://tesco.retailercommunity.com/resetpassword?id=" + user.password_hash + "&email="+user.email
             content = Content("text/plain", "Click {} to reset your password.".format(urlstring))
             mail = Mail(from_email, subject, to_email, content)
             response = sg.client.mail.send.post(request_body=mail.get())
