@@ -3,7 +3,12 @@ from project import app,db
 from flask import render_template,redirect,request,url_for,flash,abort
 from flask_login import login_user,login_required,logout_user,current_user
 from project.models import User,Product,Purchase,Review
-from project.forms import LoginForm, RegistrationForm,ProductForm,ReviewForm,ModerateReviewForm
+from project.forms import LoginForm, RegistrationForm,ProductForm,ReviewForm,ModerateReviewForm,ForgotPasswordForm,ResetPasswordForm
+from werkzeug.security import generate_password_hash
+
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
 
 @app.route('/')
 def home():
@@ -122,6 +127,43 @@ def profile():
 @login_required
 def thanks():
     return render_template('thanks.html')
+
+@app.route('/forgotpassword',methods=['GET', 'POST'])
+def forgot_password():
+    form = ForgotPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data.lower()).first()
+        if user is not None:
+            sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+            from_email = Email("do.not.reply@retailercommunity.com")
+            to_email = Email(user.email)
+            subject = "Forgot Password Email from Tesco Retail Reviews"
+            urlstring = "http://localhost:5001/resetpassword?id=" + user.password_hash
+            content = Content("text/plain", "Click {} to reset your password.".format(urlstring))
+            mail = Mail(from_email, subject, to_email, content)
+            response = sg.client.mail.send.post(request_body=mail.get())
+            flash ('Thanks.  We are sending you a link to reset your password now.')
+            return redirect(url_for('home'))
+        flash ('The email entered do not match our records.  Please try again.')
+    return render_template('forgotpassword.html',form=form)
+
+@app.route('/resetpassword',methods=['GET', 'POST'])
+def reset_password():
+    form = ResetPasswordForm()
+    user = User.query.filter_by(password_hash=request.args.get('id')).first()
+    if user is not None:
+        form.password_hash.data=request.args.get('id')
+        if form.validate_on_submit():
+            user = User.query.filter_by(password_hash=form.password_hash.data).first()
+            user.password_hash = generate_password_hash(form.password.data)
+            db.session.commit()
+            flash('Password Updated')
+            return redirect(url_for('home'))
+        return render_template('resetpassword.html',form=form, user=user)
+    else:
+        return redirect(url_for('home'))
+
+
 
 
 

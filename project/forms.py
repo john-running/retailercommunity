@@ -10,6 +10,16 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password',validators=[DataRequired()])
     submit = SubmitField("Sign in")
 
+class ForgotPasswordForm(FlaskForm):
+    email = StringField('Email',validators=[DataRequired(),Email()])
+    submit = SubmitField("Send")
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password',validators=[DataRequired(),EqualTo('pass_confirm',message='Passwords must match.')])
+    pass_confirm = PasswordField('Confirm Password',validators=[DataRequired()])
+    password_hash =  HiddenField('Password_Hash')
+    submit = SubmitField("Update")
+
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(),Email()])
