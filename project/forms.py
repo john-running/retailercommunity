@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,TextAreaField,IntegerField,DecimalField,PasswordField,SubmitField,HiddenField,RadioField
 from wtforms.validators import DataRequired,Email,EqualTo
 from wtforms import ValidationError
+from flask_login import current_user
 
 class LoginForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(),Email()])
@@ -36,6 +37,13 @@ class RegistrationForm(FlaskForm):
         if User.query.filter_by(email=email).first():
             return False
         return True
+
+class ProfileForm(FlaskForm):
+    fname = StringField('First Name',validators=[DataRequired()])
+    lname = StringField('Last Name',validators=[DataRequired()])
+    nickname = StringField('Nickname',validators=[DataRequired()])
+    rewardsid = StringField('RewardsId',validators=[DataRequired()])
+    submit = SubmitField('Update')
 
 class ProductForm(FlaskForm):
     name = StringField('Product Name',validators=[DataRequired()])

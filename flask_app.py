@@ -3,7 +3,7 @@ from project import app,db
 from flask import render_template,redirect,request,url_for,flash,abort
 from flask_login import login_user,login_required,logout_user,current_user
 from project.models import User,Product,Purchase,Review
-from project.forms import LoginForm, RegistrationForm,ProductForm,ReviewForm,ModerateReviewForm,ForgotPasswordForm,ResetPasswordForm
+from project.forms import LoginForm, RegistrationForm,ProductForm,ReviewForm,ModerateReviewForm,ForgotPasswordForm,ResetPasswordForm,ProfileForm
 from werkzeug.security import generate_password_hash
 
 import sendgrid
@@ -79,8 +79,6 @@ def write_review():
     product = Product.query.filter_by(id = request.args.get('id')).first()
     form = ReviewForm()
     form.product_id.data=request.args.get('id') # grabbing product ID from the querystring
-
-
     if form.validate_on_submit():
         review = Review(heading=form.heading.data,
                     description=form.description.data,
@@ -123,6 +121,26 @@ def profile():
         reviewpoints = reviewpoints + rev.product.reviewpoints
     return render_template('profile.html', profile=profile,reviewcount = reviewcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
 
+@app.route('/updateprofile', methods=['GET', 'POST'])
+@login_required
+def update_profile():
+    form = ProfileForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(id = current_user.id).first()
+        user.fname = form.fname.data
+        user.lname = form.lname.data
+        user.nickname = form.nickname.data
+        user.rewardsid = form.rewardsid.data
+        db.session.commit()
+        flash('Your profile has been updated.')
+        return redirect(url_for('profile'))
+    user = User.query.filter_by(id = current_user.id).first()
+    form.fname.data = user.fname
+    form.lname.data = user.lname
+    form.nickname.data = user.nickname
+    form.rewardsid.data = user.rewardsid
+    return render_template('updateprofile.html', form=form)
+
 @app.route('/thanks')
 @login_required
 def thanks():
@@ -134,13 +152,11 @@ def forgot_password():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user is not None:
-
-
             # sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
             sg = sendgrid.SendGridAPIClient(apikey='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')
             from_email = Email("do.not.reply@retailercommunity.com")
             to_email = Email(user.email)
-            subject = "Forgot Password Email from Tesco Retail Reviews"
+            subject = "Forgot Password Email from Tesco Retailer Community"
             urlstring = "http://tesco.retailercommunity.com/resetpassword?id=" + user.password_hash + "&email="+user.email
             content = Content("text/plain", "Click {} to reset your password.".format(urlstring))
             mail = Mail(from_email, subject, to_email, content)
@@ -153,19 +169,28 @@ def forgot_password():
 @app.route('/resetpassword',methods=['GET', 'POST'])
 def reset_password():
     form = ResetPasswordForm()
-    user = User.query.filter_by(password_hash=request.args.get('id'), email=request.args.get('email')).first()
+    if current_user.is_authenticated:
+        user = User.query.filter_by(id = current_user.id).first()
+        redirecturl = url_for('profile')
+    else:
+        user = User.query.filter_by(password_hash=request.args.get('id'), email=request.args.get('email')).first()
+        redirecturl = url_for('home')
     if user is not None:
         form.email.data=request.args.get('email')
         form.password_hash.data=request.args.get('id')
         if form.validate_on_submit():
-            user = User.query.filter_by(password_hash=form.password_hash.data,email=form.email.data).first()
+            if current_user.is_authenticated:
+                user = User.query.filter_by(id = current_user.id).first()
+            else:
+                user = User.query.filter_by(password_hash=form.password_hash.data,email=form.email.data).first()
             user.password_hash = generate_password_hash(form.password.data)
             db.session.commit()
             flash('Password Updated')
-            return redirect(url_for('home'))
+            return redirect(redirecturl)
         return render_template('resetpassword.html',form=form, user=user)
     else:
-        return redirect(url_for('home'))
+        flash('Something went wrong. Please try again.')
+        return redirect(url_for('forgot_password'))
 
 
 
