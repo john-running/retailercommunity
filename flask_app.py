@@ -138,7 +138,7 @@ def forgot_password():
             from_email = Email("do.not.reply@retailercommunity.com")
             to_email = Email(user.email)
             subject = "Forgot Password Email from Tesco Retail Reviews"
-            urlstring = "http://localhost:5001/resetpassword?id=" + user.password_hash
+            urlstring = "http://localhost:5001/resetpassword?id=" + user.password_hash + "&email="+user.email
             content = Content("text/plain", "Click {} to reset your password.".format(urlstring))
             mail = Mail(from_email, subject, to_email, content)
             response = sg.client.mail.send.post(request_body=mail.get())
@@ -150,11 +150,12 @@ def forgot_password():
 @app.route('/resetpassword',methods=['GET', 'POST'])
 def reset_password():
     form = ResetPasswordForm()
-    user = User.query.filter_by(password_hash=request.args.get('id')).first()
+    user = User.query.filter_by(password_hash=request.args.get('id'), email=request.args.get('email')).first()
     if user is not None:
+        form.email.data=request.args.get('email')
         form.password_hash.data=request.args.get('id')
         if form.validate_on_submit():
-            user = User.query.filter_by(password_hash=form.password_hash.data).first()
+            user = User.query.filter_by(password_hash=form.password_hash.data,email=form.email.data).first()
             user.password_hash = generate_password_hash(form.password.data)
             db.session.commit()
             flash('Password Updated')

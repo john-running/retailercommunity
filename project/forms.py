@@ -17,6 +17,7 @@ class ForgotPasswordForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password',validators=[DataRequired(),EqualTo('pass_confirm',message='Passwords must match.')])
     pass_confirm = PasswordField('Confirm Password',validators=[DataRequired()])
+    email = HiddenField("Email")
     password_hash =  HiddenField('Password_Hash')
     submit = SubmitField("Update")
 
