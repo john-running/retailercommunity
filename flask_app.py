@@ -134,7 +134,10 @@ def forgot_password():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user is not None:
-            sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+
+
+            # sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+            sg = sendgrid.SendGridAPIClient(apikey='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')
             from_email = Email("do.not.reply@retailercommunity.com")
             to_email = Email(user.email)
             subject = "Forgot Password Email from Tesco Retail Reviews"
