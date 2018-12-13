@@ -260,9 +260,9 @@ def moderate_review():
         to_email = Email(review.user.email)
         subject = "Feedback on your Product Review from Tesco Retailer Community"
         if form.status.data.lower() == "approved":
-            bodycopy = "<p style='color:black;'>Hi {},<br />Your review has been <strong>{}</strong>. You received <strong>{} Club Card</strong> points for your review. Here is feedback from the moderator:<br /><br />{}<br /><br />Please share more <a href='http://tesco.retailercommunity.com'>feedback</a>.</p>".format(review.user.nickname,form.status.data.lower(),review.product.reviewpoints,form.feedback.data)
+            bodycopy = "<p style='color:black;'>Hi {},<br />Your review has been <strong>{}</strong>. You received <strong>{} Club Card</strong> points for your review. Here is my feedback:<br /><br />{}<br /><br />Please share more <a href='http://tesco.retailercommunity.com'>feedback</a>.</p>".format(review.user.nickname,form.status.data.lower(),review.product.reviewpoints,form.feedback.data)
         else:
-            bodycopy = "<p style='color:black;'>Hi {},<br />Your review has been <strong>{}</strong>. Here is feedback from the moderator:<br /><br />{}<br /><br />But don't worry. You can <a href='http://tesco.retailercommunity.com'>try again</a>.</p>".format(review.user.nickname,form.status.data.lower(),form.feedback.data)
+            bodycopy = "<p style='color:black;'>Hi {},<br />Your review has been <strong>{}</strong>. Here is my feedback:<br /><br />{}<br /><br />But don't worry. You can <a href='http://tesco.retailercommunity.com'>try again</a>.</p>".format(review.user.nickname,form.status.data.lower(),form.feedback.data)
         content = Content("text/html", bodycopy)
         mail = Mail(from_email, subject, to_email, content)
         response = sg.client.mail.send.post(request_body=mail.get())
