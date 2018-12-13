@@ -10,6 +10,8 @@ import sendgrid
 import os
 from sendgrid.helpers.mail import *
 
+sendgridkey = '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'
+
 @app.route('/')
 def home():
     if current_user.is_authenticated:
@@ -153,12 +155,12 @@ def forgot_password():
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user is not None:
             # sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-            sg = sendgrid.SendGridAPIClient(apikey='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')
+            sg = sendgrid.SendGridAPIClient(apikey=sendgridkey)
             from_email = Email("do.not.reply@retailercommunity.com")
             to_email = Email(user.email)
             subject = "Forgot Password Email from Tesco Retailer Community"
-            urlstring = "http://tesco.retailercommunity.com/resetpassword?id=" + user.password_hash + "&email="+user.email
-            content = Content("text/plain", "Click {} to reset your password.".format(urlstring))
+            urlstring = "<a href='http://tesco.retailercommunity.com/resetpassword?id={}&email={}'>here</a>".format(user.password_hash,user.email)
+            content = Content("text/html", "Hi.  We just received a request to help you retrieve your password.  Click {} to reset your password.".format(urlstring))
             mail = Mail(from_email, subject, to_email, content)
             response = sg.client.mail.send.post(request_body=mail.get())
             flash ('Thanks.  We are sending you a link to reset your password now.')
@@ -246,13 +248,25 @@ def moderate_review():
         update_review.status = form.status.data
 
         #make purchase reviewable again if original review is rejected
-        update_purchase = Purchase.query.filter_by(product_id=review.product_id, user_id= current_user.id).first()
+        update_purchase = Purchase.query.filter_by(product_id=review.product_id, user_id= review.user.id).first()
         if form.status.data == "Rejected":
             update_purchase.hasreview = 0
         else:
             update_purchase.hasreview = 1
         db.session.commit()
-
+        # sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+        sg = sendgrid.SendGridAPIClient(apikey=sendgridkey)
+        from_email = Email("ReviewModerator@retailercommunity.com")
+        to_email = Email(review.user.email)
+        subject = "Feedback on your Product Review from Tesco Retailer Community"
+        if form.status.data.lower() == "approved":
+            bodycopy = "<p style='color:black;'>Hi {},<br />Your review has been <strong>{}</strong>. You received <strong>{} Club Card</strong> points for your review. Here is feedback from the moderator:<br /><br />{}<br /><br />Please share more <a href='http://tesco.retailercommunity.com'>feedback</a>.</p>".format(review.user.nickname,form.status.data.lower(),review.product.reviewpoints,form.feedback.data)
+        else:
+            bodycopy = "<p style='color:black;'>Hi {},<br />Your review has been <strong>{}</strong>. Here is feedback from the moderator:<br /><br />{}<br /><br />But don't worry. You can <a href='http://tesco.retailercommunity.com'>try again</a>.</p>".format(review.user.nickname,form.status.data.lower(),form.feedback.data)
+        content = Content("text/html", bodycopy)
+        mail = Mail(from_email, subject, to_email, content)
+        response = sg.client.mail.send.post(request_body=mail.get())
+        flash ('Feedback sent to {}.'.format(review.user.email))
         return redirect(url_for('all_reviews'))
 
     form.hasreview.data=request.args.get('id') # grabbing review ID from the querystring
@@ -279,7 +293,6 @@ def addproduct():
         db.session.commit()
         return redirect(url_for('list_products'))
     return render_template('admin/addproduct.html', form=form)
-
 
 @app.route('/admin/products')
 @login_required
