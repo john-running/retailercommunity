@@ -156,9 +156,9 @@ def forgot_password():
         if user is not None:
             # sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
             sg = sendgrid.SendGridAPIClient(apikey=sendgridkey)
-            from_email = Email("do.not.reply@retailercommunity.com")
+            from_email = Email("do.not.reply@retailercommunity.com", "Tesco Reviewer Community Administrator")
             to_email = Email(user.email)
-            subject = "Forgot Password Email from Tesco Retailer Community"
+            subject = "Forgot Password Email from Tesco Reviewer Community"
             urlstring = "<a href='http://tesco.retailercommunity.com/resetpassword?id={}&email={}'>here</a>".format(user.password_hash,user.email)
             content = Content("text/html", "Hi.  We just received a request to help you retrieve your password.  Click {} to reset your password.".format(urlstring))
             mail = Mail(from_email, subject, to_email, content)
@@ -256,7 +256,7 @@ def moderate_review():
         db.session.commit()
         # sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
         sg = sendgrid.SendGridAPIClient(apikey=sendgridkey)
-        from_email = Email("ReviewModerator@retailercommunity.com")
+        from_email = Email("ReviewModerator@retailercommunity.com", current_user.fname + " " + current_user.lname + ", Community Content Moderator")
         to_email = Email(review.user.email)
         subject = "Feedback on your Product Review from Tesco Retailer Community"
         if form.status.data.lower() == "approved":
