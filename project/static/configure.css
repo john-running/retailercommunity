@@ -106,3 +106,9 @@ h4 {
     color: #ffffff;
     background-color: rgba(10,85,157); /* add background-color to active links */
 }
+
+.counter{
+  width: 50px;
+  font-weight: bold;
+  color: rgba(10,85,157);
+}

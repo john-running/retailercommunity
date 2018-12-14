@@ -21,11 +21,10 @@
         <div class="card-body">
           <form method="post">
             {{form.hidden_tag()}}
-
             <div class="form-group">
             Star Rating<br>
-            <div id="rateYo"></div>
-            <br>
+            <div id="rateYo"></div><div class="counter">&nbsp;</div>
+
             {{form.heading.label}}<br>
             {{form.heading(class_='form-control')}}
                 <small id="errortext" class="text-danger">
@@ -54,15 +53,20 @@
 
 
 
-
-
-
-
-
   <script type="text/javascript">
+  var dict = {
+    1: "Poor",
+    2: "Fair",
+    3: "OK",
+    4: "Good",
+    5: "Great!"
+  }
   $(function () {
     var $rateYo = $("#rateYo").rateYo({
-      precision: 0
+      precision: 0,
+      onChange: function (rating, rateYoInstance) {
+        $(this).next().text(dict[rating]);
+      }
       });
     $("#rateYo").click(function () {
       /* get rating */
@@ -70,6 +74,7 @@
       document.getElementById('starrating').value=rating ;
     });
   });
+
 
   </script>
 
