@@ -70,6 +70,7 @@ class Purchase(db.Model):
 class Review(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer,primary_key = True)
+    creationdate = db.Column(db.DateTime)
     heading = db.Column(db.String(512))
     description = db.Column(db.Text)
     starrating = db.Column(db.Float)
@@ -80,7 +81,8 @@ class Review(db.Model):
     product_id = db.Column(db.Integer,db.ForeignKey('products.id'))
     product = db.relationship("Product")
 
-    def __init__(self,heading,description,starrating,user_id,status,feedback,product_id):
+    def __init__(self,creationdate,heading,description,starrating,user_id,status,feedback,product_id):
+        self.creationdate = creationdate
         self.heading = heading
         self.description = description
         self.starrating= starrating

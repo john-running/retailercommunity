@@ -26,20 +26,54 @@
             <div id="rateYo"></div><div class="counter">&nbsp;</div>
 
             {{form.heading.label}}<br>
+            <small id="errortext" class="text-danger">
+             {% for message in form.heading.errors %}
+                 {{ message }}
+              {% endfor %}
+           </small>
             {{form.heading(class_='form-control')}}
-                <small id="errortext" class="text-danger">
-                 {% for message in form.heading.errors %}
-                     {{ message }}
-                  {% endfor %}
-               </small>
+            <small id="emailHelp" class="form-text text-muted">Example: "This product has great features."</small>
+            </div>
+            <p>
+            <a href="#" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              How to write a great review
+            </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <strong>Do say:</strong>
+                      <ul>
+                        <li>Why did you buy the product - did you have a purpose in mind?</li>
+                        <li>What did you like/not linke about it - be specific</li>
+                        <li>Tips and advice you would have found helpful when buying it</li>
+
+                      </ul>
+                      <strong>Don't include:</strong>
+                      <ul>
+                        <li>Personal information: Never include home addresses, email addresses or phone numbers.</li>
+                        <li>Any offensive or discriminatory language</li>
+                        <li>Information about ther websites or companies</li>
+                        <li>Information about price (because prices might change over time)</li>
+                        <li>Customer service issues - please contact our customer service team with these, they can help you more quickly</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <br>
             </div>
             <div class="form-group">
-              {{form.description.label}}<br>{{form.description(class_='form-control')}}
+              {{form.description.label}}<br>
               <small id="errortext" class="text-danger">
               {% for message in form.description.errors %}
                   {{ message }}
                {% endfor %}
                </small>
+              {{form.description(class_='form-control')}}
+              <small id="emailHelp" class="form-text text-muted">You must write at least 10 characters</small>
             </div>
 
             {{form.starrating}}
@@ -55,11 +89,11 @@
 
   <script type="text/javascript">
   var dict = {
-    1: "Poor",
-    2: "Fair",
-    3: "OK",
-    4: "Good",
-    5: "Great!"
+    1: "poor",
+    2: "adequate",
+    3: "average",
+    4: "good",
+    5: "excellent"
   }
   $(function () {
     var $rateYo = $("#rateYo").rateYo({
@@ -75,8 +109,5 @@
     });
   });
 
-
-  </script>
-
-
+</script>
 {% endblock %}

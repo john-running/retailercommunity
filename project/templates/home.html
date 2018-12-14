@@ -20,7 +20,11 @@
         {% else %}
           <div class="jumbotron">
             <h4>Hi {{current_user.nickname}},</h4>
+            {% if reviewthisweekcount == 5%}
             <p>Looks like we don't have any products for you to review right now.  Please check back later.</p>
+            {% else %}
+              <p>Looks like we don't have any products for you to review right now.  Please check back later.</p>
+            {% endif %}
         {% endif %}
             <div class="row">
               <div class="col-sm-4">
@@ -34,8 +38,8 @@
               <div class="col-sm-4">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title" Align="center">{{approvedreviewcount}}</h5>
-                    <p class="card-text" Align="center">Approved Reviews</p>
+                    <h5 class="card-title" Align="center">{{reviewthisweekcount}}</h5>
+                    <p class="card-text" Align="center">Reviews This Week</p>
                   </div>
                 </div>
               </div>

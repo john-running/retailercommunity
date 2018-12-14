@@ -10,8 +10,8 @@
             <thead>
             <tr>
               <th scope="col">Product</th>
+              <th scope="col">Review Date</th>
               <th scope="col">Your Rating</th>
-              <th scope="col">Reward Points</th>
               <th scope="col">Status</th>
             </tr>
             </thead>
@@ -19,8 +19,12 @@
             {% for rev in reviews  %}
               <tr>
                 <td><img src="{{rev.product.image}}" width="75" align="left"><a href="moderatorfeedback?id={{rev.id}}">{{rev.product.name}}</a></td>
+                {% if rev.creationdate is not none%}
+                    <td>{{rev.creationdate.strftime('%Y-%m-%d')}}</td>
+                {% else %}
+                    <td>&nbsp;</td>
+                {% endif %}
                 <td><img src="/static/{{rev.starrating}}-Star.png" alt="star rating" width="50"></td>
-                <td>{{rev.product.reviewpoints}}</td>
                 <td><a href="moderatorfeedback?id={{rev.id}}">{{rev.status}}</a></td>
               </tr>
               {% endfor %}

@@ -2,7 +2,7 @@
 from project.models import User
 from flask_wtf import FlaskForm
 from wtforms import StringField,TextAreaField,IntegerField,DecimalField,PasswordField,SubmitField,HiddenField,RadioField
-from wtforms.validators import DataRequired,Email,EqualTo
+from wtforms.validators import DataRequired,Email,EqualTo,Length
 from wtforms import ValidationError
 from flask_login import current_user
 
@@ -57,8 +57,8 @@ class ProductForm(FlaskForm):
 
 
 class ReviewForm(FlaskForm):
-    heading = StringField('Review Heading',validators=[DataRequired()])
-    description = TextAreaField('Review Description',validators=[DataRequired()])
+    heading = StringField('Review Heading',validators=[DataRequired(),Length(max=50, message='Your Heading must be no more than 50 characters.')])
+    description = TextAreaField('Review Description',validators=[DataRequired(),Length(min=10, max=2000, message='Your review must be more than 10 characters and less than 2000 characters.')])
     starrating = HiddenField('Star Rating', validators=[DataRequired()])
     product_id =  HiddenField('Product_ID')
     submit = SubmitField('Add Review')

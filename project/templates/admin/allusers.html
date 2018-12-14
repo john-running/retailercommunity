@@ -30,7 +30,7 @@
           <td>{{user.fname}} {{user.lname}}</td>
           <td>{{user.nickname}}</td>
           <td>{{user.rewardsid}}</td>
-          <td><a href="allreviews?uid={{user.id}}">Reviews</a> | <a href="purchases?uid={{user.id}}">Purchases</a> | <a href="{{url_for('delete_user')}}?uid={{user.id}}">X</a></td>
+          <td><a href="allreviews?uid={{user.id}}">Reviews</a> | <a href="purchases?uid={{user.id}}">Purchases</a></td>
         </tr>
         {% endfor %}
       </tbody>

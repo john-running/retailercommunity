@@ -8,7 +8,9 @@ from werkzeug.security import generate_password_hash
 
 import sendgrid
 import os
+from datetime import datetime, timedelta
 from sendgrid.helpers.mail import *
+from sqlalchemy import desc
 
 sendgridkey = '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'
 
@@ -21,11 +23,14 @@ def home():
         approvedreviews = reviews.filter_by(status = "Approved")
         approvedreviewcount = approvedreviews.count()
         reviewpoints = 0
+        reviewsthisweek = reviews.filter(Review.creationdate >= datetime.today() - timedelta(days=7))
+        reviewthisweekcount = reviewsthisweek.count()
+
         for rev in approvedreviews:
             reviewpoints = reviewpoints + rev.product.reviewpoints
-        if purchases is not None:  #user still has products to review
-            return render_template('home.html',purchases=purchases,reviewcount = reviewcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
-        return render_template('home.html',reviewcount = reviewcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
+        if purchases is not None and reviewthisweekcount < 5:  #user still has products to review
+            return render_template('home.html',purchases=purchases,reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
+        return render_template('home.html',reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
     return render_template('home.html')
 
 @app.route('/logout')
@@ -82,7 +87,8 @@ def write_review():
     form = ReviewForm()
     form.product_id.data=request.args.get('id') # grabbing product ID from the querystring
     if form.validate_on_submit():
-        review = Review(heading=form.heading.data,
+        review = Review(creationdate=datetime.today(),
+                    heading=form.heading.data,
                     description=form.description.data,
                     starrating=form.starrating.data,
                     user_id=current_user.id,
@@ -106,7 +112,8 @@ def moderator_feedback():
 @app.route('/reviews')
 @login_required
 def list_reviews():
-    reviews = Review.query.filter_by(user_id = current_user.id)
+    reviews = Review.query.filter_by(user_id = current_user.id).order_by(desc(Review.creationdate))
+    #reviews = Review.query.filter(Review.creationdate >= '2018-12-09')
     return render_template('reviews.html', reviews=reviews)
 
 
@@ -193,9 +200,6 @@ def reset_password():
     else:
         flash('Something went wrong. Please try again.')
         return redirect(url_for('forgot_password'))
-
-
-
 
 
 #####
