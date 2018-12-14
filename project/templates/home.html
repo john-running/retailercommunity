@@ -21,7 +21,7 @@
           <div class="jumbotron">
             <h4>Hi {{current_user.nickname}},</h4>
             {% if reviewthisweekcount == 5%}
-            <p>Looks like we don't have any products for you to review right now.  Please check back later.</p>
+            <p>Looks like you have submitted the maximum number of reviews for the week. Please check back again next week.</p>
             {% else %}
               <p>Looks like we don't have any products for you to review right now.  Please check back later.</p>
             {% endif %}
