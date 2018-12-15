@@ -108,7 +108,16 @@ h4 {
 }
 
 .counter{
-  width: 100px;
-  font-weight: bold;
+  width: 200px;
+  font-size: .7em;
+  font-weight: 700;
   color: rgba(10,85,157);
+}
+
+.small-left{
+  float: left;
+}
+
+.small-right{
+  float: right;
 }

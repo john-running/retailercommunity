@@ -23,8 +23,13 @@
             {{form.hidden_tag()}}
             <div class="form-group">
             Star Rating<br>
-            <div id="rateYo"></div><div class="counter">&nbsp;</div>
-
+            <table>
+              <tr>
+                <td><div id="rateYo"></div></td>
+                <td><div id="counter" class="counter">&nbsp;</div></td>
+              </tr>
+            </table>
+            <br>
             {{form.heading.label}}<br>
             <small id="errortext" class="text-danger">
              {% for message in form.heading.errors %}
@@ -35,11 +40,11 @@
             <small id="emailHelp" class="form-text text-muted">Example: "This product has great features."</small>
             </div>
             <p>
-            <a href="#" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <a href="#" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapseExample">
               How to write a great review
             </a>
             </p>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapse">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="card">
@@ -47,7 +52,7 @@
                       <strong>Do say:</strong>
                       <ul>
                         <li>Why did you buy the product - did you have a purpose in mind?</li>
-                        <li>What did you like/not linke about it - be specific</li>
+                        <li>What did you like/not like about it - be specific</li>
                         <li>Tips and advice you would have found helpful when buying it</li>
 
                       </ul>
@@ -73,9 +78,9 @@
                {% endfor %}
                </small>
               {{form.description(class_='form-control')}}
-              <small id="emailHelp" class="form-text text-muted">You must write at least 10 characters and no more than 2000.</small>
+              <small id="emailHelp" class="form-text text-muted"><div id="textarea_feedback" class="small-left">You must write at least 100 characters.</div></small>
             </div>
-
+            <br>
             {{form.starrating}}
             {{form.product_id}}
             {{form.submit(class_='btn btn-outline-primary')}}
@@ -84,29 +89,50 @@
       </div>
     </div>
     </div>
-
-
+</div>
 
   <script type="text/javascript">
   var dict = {
-    1: "poor",
-    2: "adequate",
-    3: "average",
-    4: "good",
-    5: "excellent"
+    1: "1 Star - Poor",
+    2: "2 Stars - Adequate",
+    3: "3 Stars - Average",
+    4: "4 Stars - Good",
+    5: "5 Stars - Excellent"
   }
   $(function () {
     var $rateYo = $("#rateYo").rateYo({
       precision: 0,
       onChange: function (rating, rateYoInstance) {
-        $(this).next().text(dict[rating]);
-      }
+        // $(this).next().text(dict[rating]);
+        $('#counter').html(dict[rating])
+        }
       });
     $("#rateYo").click(function () {
       /* get rating */
       var rating = $rateYo.rateYo("rating");
       document.getElementById('starrating').value=rating ;
     });
+  });
+
+  $(document).ready(function() {
+    var text_min = 100;
+    var text_max = 2000;
+    displaylength();
+
+    function displaylength(){
+      var text_length = $('#description').val().length;
+      var min_text_remaining  = text_min - text_length
+      var text_remaining = text_max - text_length;
+      if (text_length < 100 && text_length>0){
+        $('#textarea_feedback').html('You must write ' + min_text_remaining + ' more characters before submitting.')
+      } else if (text_length >= 100) {
+        $('#textarea_feedback').html(text_remaining + '/2000 maximum characters.');
+      }
+    }
+
+      $('#description').keyup(function() {
+        displaylength();
+      });
   });
 
 </script>
