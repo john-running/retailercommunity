@@ -153,7 +153,10 @@ def update_profile():
 @app.route('/thanks')
 @login_required
 def thanks():
-    return render_template('thanks.html')
+    reviews = Review.query.filter_by(user_id = current_user.id)
+    reviewsthisweek = reviews.filter(Review.creationdate >= datetime.today() - timedelta(days=7))
+    reviewthisweekcount = reviewsthisweek.count()
+    return render_template('thanks.html', reviewthisweekcount = reviewthisweekcount)
 
 @app.route('/forgotpassword',methods=['GET', 'POST'])
 def forgot_password():

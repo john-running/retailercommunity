@@ -2,10 +2,13 @@
 {% block content %}
   <div class="jumbotron">
   <h4>Thanks!</h4>
-  <br>
-  {{current_user.fname}},<br>
-  <p>Thanks for submitting your review.  It is in our queue to be moderated.  You will receive an email with feedback soon.</p>
-   <p>Why not <a href="{{url_for('home')}}">write another review</a> while you wait?</p>
+  <p>{{current_user.fname}},</p>
+  <p>Thanks for submitting your review. It is in our queue to be moderated, and after it gets approved, it will be sent for display on Tesco.com. The process can take up to a week.</p>
+  {% if reviewthisweekcount < 5 %}
+    <p>You have more products to review - <a href="{{url_for('home')}}">review more products now.</a></p>
+  {% else %}
+    <p>You have no more products to review right now - please check back weekly to review more products. We will send you email notifications when there are more products to review.</p>
+  {% endif %}
   </div>
 
 {% endblock %}

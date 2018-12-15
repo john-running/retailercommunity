@@ -61,7 +61,7 @@ class ReviewForm(FlaskForm):
     description = TextAreaField('Review Description',validators=[DataRequired(),Length(min=100, max=2000, message='Your review must be more than 100 characters and less than 2000 characters.')])
     starrating = HiddenField('Star Rating', validators=[DataRequired()])
     product_id =  HiddenField('Product_ID')
-    submit = SubmitField('Add Review')
+    submit = SubmitField('Submit Review')
 
 
 class ModerateReviewForm(FlaskForm):
