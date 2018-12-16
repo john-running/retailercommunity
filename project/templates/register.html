@@ -9,72 +9,92 @@
         <form method="post">
           <div class="form-group">
           {{form.hidden_tag()}}
-          {{form.email.label}}<br>
-          {{form.email(class_='form-control')}}
-          <small id="errortext" class="text-danger">
-           {% for message in form.email.errors %}
-               {{ message }}
-            {% endfor %}
-         </small>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          {{form.email.label}}
+          <br>
+           {% if form.email.errors[0]|length > 1 %}
+              {{form.email(class_='form-control is-invalid')}}
+              <small id="errortext" class="text-danger">{{ form.email.errors[0] }}</small>
+            {% else %}
+              {{form.email(class_='form-control')}}
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            {% endif %}
           </div>
+
           <div class="form-group">
           {{form.fname.label}}<br>
-          {{form.fname(class_='form-control')}}
-          <small id="errortext" class="text-danger">
-           {% for message in form.fname.errors %}
-               {{ message }}
-            {% endfor %}
-         </small>
+          {% if form.fname.errors[0]|length > 1 %}
+            {{form.fname(class_='form-control is-invalid')}}
+            <small id="errortext" class="text-danger">{{ form.fname.errors[0] }}</small>
+          {% else %}
+            {{form.fname(class_='form-control')}}
+          {% endif %}
           </div>
+
           <div class="form-group">
           {{form.lname.label}}<br>
-          {{form.lname(class_='form-control')}}
-          <small id="errortext" class="text-danger">
-           {% for message in form.lname.errors %}
-               {{ message }}
-            {% endfor %}
-         </small>
+          {% if form.lname.errors[0]|length > 1 %}
+            {{form.lname(class_='form-control is-invalid')}}
+            <small id="errortext" class="text-danger">{{ form.lname.errors[0] }}</small>
+          {% else %}
+            {{form.lname(class_='form-control')}}
+          {% endif %}
           </div>
+
+
           <div class="form-group">
           {{form.nickname.label}}<br>
-          {{form.nickname(class_='form-control')}}
-          <small id="errortext" class="text-danger">
-           {% for message in form.nickname.errors %}
-               {{ message }}
-            {% endfor %}
-         </small>
+          {% if form.nickname.errors[0]|length > 1 %}
+            {{form.nickname(class_='form-control is-invalid')}}
+            <small id="errortext" class="text-danger">{{ form.nickname.errors[0] }}</small>
+          {% else %}
+            {{form.nickname(class_='form-control')}}
+            <small id="emailHelp" class="form-text text-muted">This is the name we will display with your reviews on Tesco.com.  For privacy reasons do not use your full name or email address.</small>
+          {% endif %}
           </div>
+
           <div class="form-group">
           {{form.rewardsid.label}}<br>
-          {{form.rewardsid(class_='form-control')}}<small id="errortext" class="text-danger">
-           {% for message in form.nickname.errors %}
-               {{ message }}
-            {% endfor %}
-         </small>
-
+          {% if form.rewardsid.errors[0]|length > 1 %}
+            {{form.rewardsid(class_='form-control is-invalid')}}
+            <small id="errortext" class="text-danger">{{ form.rewardsid.errors[0] }}</small>
+          {% else %}
+            {{form.rewardsid(class_='form-control')}}
+          {% endif %}
           </div>
+
           <div class="form-group">
           {{form.password.label}}<br>
-          {{form.password(class_='form-control')}}
-          <small id="errortext" class="text-danger">
-           {% for message in form.password.errors %}
-               {{ message }}
-            {% endfor %}
-         </small>
+          {% if form.password.errors[0]|length > 1 %}
+            {{form.password(class_='form-control is-invalid')}}
+            <small id="errortext" class="text-danger">{{ form.password.errors[0] }}</small>
+          {% else %}
+            {{form.password(class_='form-control')}}
+          {% endif %}
           </div>
+
           <div class="form-group">
           {{form.pass_confirm.label}}<br>
-          {{form.pass_confirm(class_='form-control')}}
-          <small id="errortext" class="text-danger">
-           {% for message in form.pass_confirm.errors %}
-               {{ message }}
-            {% endfor %}
-         </small>
+          {% if form.pass_confirm.errors[0]|length > 1 %}
+            {{form.pass_confirm(class_='form-control is-invalid')}}
+            <small id="errortext" class="text-danger">{{ form.pass_confirm.errors[0] }}</small>
+          {% else %}
+            {{form.pass_confirm(class_='form-control')}}
+          {% endif %}
           </div>
+
+          <div class="form-group form-check">
+          {% if form.opt_in.errors[0]|length > 1 %}
+          {{form.opt_in(class_='form-check-input is-invalid')}}
+          <label class="form-check-label" for="opt-in">You must agree to the <a href="#">Terms and Conditions</a> for submitting content.</label>
+          {% else %}
+            {{form.opt_in(class_='form-check-input')}}
+            <label class="form-check-label" for="opt-in">I agree to the <a href="#">Terms and Conditions</a> for submitting content.</label>
+          {% endif %}
+          </div>
+
           <div class="form-group">
           {{form.submit(class_='btn btn-outline-primary')}}
-          </div
+          </div>
         </form>
       </div>
     </div>

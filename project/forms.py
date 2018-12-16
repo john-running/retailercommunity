@@ -1,7 +1,7 @@
 #forms.py
 from project.models import User
 from flask_wtf import FlaskForm
-from wtforms import StringField,TextAreaField,IntegerField,DecimalField,PasswordField,SubmitField,HiddenField,RadioField
+from wtforms import StringField,TextAreaField,IntegerField,DecimalField,PasswordField,SubmitField,HiddenField,RadioField,BooleanField
 from wtforms.validators import DataRequired,Email,EqualTo,Length
 from wtforms import ValidationError
 from flask_login import current_user
@@ -28,9 +28,10 @@ class RegistrationForm(FlaskForm):
     fname = StringField('First Name',validators=[DataRequired()])
     lname = StringField('Last Name',validators=[DataRequired()])
     nickname = StringField('Nickname',validators=[DataRequired()])
-    rewardsid = StringField('RewardsId',validators=[DataRequired()])
+    rewardsid = StringField('Clubcard #',validators=[DataRequired()])
     password = PasswordField('Password',validators=[DataRequired(),EqualTo('pass_confirm',message='Passwords must match.')])
     pass_confirm = PasswordField('Confirm Password',validators=[DataRequired()])
+    opt_in = BooleanField('Opt In', validators=[DataRequired(message='You must confirm acceptance of the Terms and Conditions before registering.')])
     submit = SubmitField('Register')
 
     def check_email(self,email):
