@@ -12,6 +12,7 @@
               <th scope="col">Product</th>
               <th scope="col">Review Date</th>
               <th scope="col">Your Rating</th>
+              <th scope="col">Clubcard Points</th>
               <th scope="col">Status</th>
             </tr>
             </thead>
@@ -25,6 +26,13 @@
                     <td>&nbsp;</td>
                 {% endif %}
                 <td><img src="/static/{{rev.starrating}}-Star.png" alt="star rating" width="50"></td>
+                {% if rev.status == 'Approved' %}
+                  <td>{{rev.product.reviewpoints}}</td>
+                {% elif rev.status == 'Pending'%}
+                  <td>Awaiting Moderation</td>
+                {% elif rev.status == 'Rejected'%}
+                    <td>0</td>
+                {% endif %}
                 <td><a href="moderatorfeedback?id={{rev.id}}">{{rev.status}}</a></td>
               </tr>
               {% endfor %}

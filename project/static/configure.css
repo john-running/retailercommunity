@@ -19,11 +19,17 @@ body {
 
 
 .jumbotron-cover{
-  background-image: url(splash.jpg);
+  background-image:
+  linear-gradient(
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.3)
+      ),
+      url(splash.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   height: 360px;
 }
+
 a {
     color: rgba(10,85, 157, 1);
     text-decoration: underline;
@@ -50,6 +56,16 @@ h4 {
     color: #ffffff;
     line-height: 60px
 }
+
+.h1-home-small{
+    padding: 1.25rem;
+    font-weight: 700;
+    font-size: 3.0em;
+    color: #ffffff;
+    line-height: 60px
+}
+
+
 
 .row{
   margin-left: 0px;
