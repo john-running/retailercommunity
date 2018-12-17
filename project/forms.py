@@ -60,7 +60,7 @@ class ProductForm(FlaskForm):
 class ReviewForm(FlaskForm):
     heading = StringField('Review Heading',validators=[DataRequired(),Length(min=10, max=50, message='Your heading must be 10 - 50 characters in length.')])
     description = TextAreaField('Review Description',validators=[DataRequired(),Length(min=100, max=2000, message='Your review must be more than 100 characters and less than 2000 characters.')])
-    starrating = HiddenField('Star Rating', validators=[DataRequired()])
+    starrating = HiddenField('Star Rating', validators=[DataRequired(message='You must enter a star rating.')])
     product_id =  HiddenField('Product_ID')
     submit = SubmitField('Submit Review')
 

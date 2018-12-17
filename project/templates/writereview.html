@@ -29,14 +29,18 @@
                 <td><div id="counter" class="counter">&nbsp;</div></td>
               </tr>
             </table>
+            {% if form.starrating.errors[0]|length > 1 %}
+              <small id="errortext" class="text-danger">{{ form.starrating.errors[0] }}</small>
+              <br>
+            {% endif %}
             <br>
             {{form.heading.label}}<br>
             {% if form.heading.errors[0]|length > 1 %}
-              {{form.heading(class_='form-control is-invalid')}}
-              <small id="errortext" class="text-danger">{{ form.heading.errors[0] }}</small>
+              {{form.heading(class_='form-control is-invalid', maxlength = 50)}}
+              <small id="errortext" class="text-danger"><div id="heading_feedback" class="small-left">You must write at least 100 characters. Example: "This product has great features."</div><br></small>
             {% else %}
-              {{form.heading(class_='form-control')}}
-              <small id="emailHelp" class="form-text text-muted">Example: "This product has great features."</small>
+              {{form.heading(class_='form-control', maxlength=50)}}
+              <small id="emailHelp" class="form-text text-muted"><div id="heading_feedback" class="small-left">You must write at least 100 characters. Example: "This product has great features."</div><br></small>
             {% endif %}
             </div>
             <p>
@@ -56,7 +60,7 @@
                         <li>Tips and advice you would have found helpful when buying it</li>
 
                       </ul>
-                      <strong>Don't include:</strong>
+                      <strong>Avoid:</strong>
                       <ul>
                         <li>Personal information: Never include home addresses, email addresses or phone numbers</li>
                         <li>Any offensive or discriminatory language</li>
@@ -73,10 +77,10 @@
             <div class="form-group">
             {{form.description.label}}<br>
             {% if form.description.errors[0]|length > 1 %}
-              {{form.description(class_='form-control is-invalid')}}
+              {{form.description(class_='form-control is-invalid',rows='8')}}
               <small id="errortext" class="text-danger"><div id="textarea_feedback" class="small-left">You must write at least 100 characters.</div></small>
             {% else %}
-              {{form.description(class_='form-control')}}
+              {{form.description(class_='form-control',rows='8')}}
               <small id="emailHelp" class="form-text text-muted"><div id="textarea_feedback" class="small-left">You must write at least 100 characters.</div></small>
             {% endif %}
             </div>
@@ -100,18 +104,52 @@
     5: "5 Stars - Excellent"
   }
   $(function () {
-    var $rateYo = $("#rateYo").rateYo({
-      precision: 0,
-      onChange: function (rating, rateYoInstance) {
-        // $(this).next().text(dict[rating]);
-        $('#counter').html(dict[rating])
-        }
-      });
+    if (document.getElementById('starrating').value){
+      $('#counter').html(dict[document.getElementById('starrating').value])
+      var $rateYo = $("#rateYo").rateYo({
+        precision: 0,
+        rating: document.getElementById('starrating').value,
+        onChange: function (rating, rateYoInstance) {
+          // $(this).next().text(dict[rating]);
+          $('#counter').html(dict[rating])
+          }
+        });
+    } else {
+      var $rateYo = $("#rateYo").rateYo({
+        precision: 0,
+        onChange: function (rating, rateYoInstance) {
+          // $(this).next().text(dict[rating]);
+          $('#counter').html(dict[rating])
+          }
+        });
+    }
     $("#rateYo").click(function () {
       /* get rating */
       var rating = $rateYo.rateYo("rating");
       document.getElementById('starrating').value=rating ;
     });
+  });
+
+
+  $(heading).ready(function() {
+    var text_min = 10;
+    var text_max = 50;
+    displaylength();
+
+    function displaylength(){
+      var text_length = $('#heading').val().length;
+      var min_text_remaining  = text_min - text_length
+      var text_remaining = text_max - text_length;
+      if (text_length < 10 && text_length>0){
+        $('#heading_feedback').html('You must write ' + min_text_remaining + ' more characters before submitting.')
+      } else if (text_length >= 10) {
+        $('#heading_feedback').html(text_remaining + '/50 maximum characters remaining.');
+      }
+    }
+
+      $('#heading').keyup(function() {
+        displaylength();
+      });
   });
 
   $(document).ready(function() {
