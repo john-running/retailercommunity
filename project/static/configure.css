@@ -107,8 +107,8 @@ h4 {
 
 .btn-outline-primary:hover,
 .btn-outline-primary.active{
-    background-color: rgba(10,85, 157, 1);
-
+    background-color: rgba(10,85, 157, 1) !important;;
+    box-shadow: none !important;;
 }
 
 
