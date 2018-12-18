@@ -37,10 +37,10 @@
             {{form.heading.label}}<br>
             {% if form.heading.errors[0]|length > 1 %}
               {{form.heading(class_='form-control is-invalid', maxlength = 50)}}
-              <small id="errortext" class="text-danger"><div id="heading_feedback" class="small-left">You must write at least 100 characters. Example: "This product has great features."</div><br></small>
+              <small id="errortext" class="text-danger"><div id="heading_feedback" class="small-left">You must write at least 10 characters. Example: "This product has great features."</div><br></small>
             {% else %}
               {{form.heading(class_='form-control', maxlength=50)}}
-              <small id="emailHelp" class="form-text text-muted"><div id="heading_feedback" class="small-left">You must write at least 100 characters. Example: "This product has great features."</div><br></small>
+              <small id="emailHelp" class="form-text text-muted"><div id="heading_feedback" class="small-left">You must write at least 10 characters. Example: "This product has great features."</div><br></small>
             {% endif %}
             </div>
             <p>
@@ -97,6 +97,7 @@
 
   <script type="text/javascript">
   var dict = {
+    0: " ",
     1: "1 Star - Poor",
     2: "2 Stars - Adequate",
     3: "3 Stars - Average",
@@ -128,49 +129,43 @@
       var rating = $rateYo.rateYo("rating");
       document.getElementById('starrating').value=rating ;
     });
+
   });
+
+
+
+  function displaylength(thefield,thefeedback,text_min,text_max){
+    //var raw_text = $(thefield).val().replace(/\s/g, '');
+    var raw_text = $(thefield).val();
+    var text_length = raw_text.length;
+    var min_text_remaining  = text_min - text_length
+    var text_remaining = text_max - text_length;
+    if (text_length < text_min && text_length>0){
+      $(thefeedback).html('You must write ' + min_text_remaining + ' more characters before submitting.')
+    } else if (text_length >= text_min) {
+      $(thefeedback).html(text_remaining + '/' + text_max + ' maximum characters remaining.');
+    }
+  }
 
 
   $(heading).ready(function() {
     var text_min = 10;
     var text_max = 50;
-    displaylength();
-
-    function displaylength(){
-      var text_length = $('#heading').val().length;
-      var min_text_remaining  = text_min - text_length
-      var text_remaining = text_max - text_length;
-      if (text_length < 10 && text_length>0){
-        $('#heading_feedback').html('You must write ' + min_text_remaining + ' more characters before submitting.')
-      } else if (text_length >= 10) {
-        $('#heading_feedback').html(text_remaining + '/50 maximum characters remaining.');
-      }
-    }
+    displaylength('#heading','#heading_feedback',text_min,text_max);
 
       $('#heading').keyup(function() {
-        displaylength();
+        displaylength('#heading','#heading_feedback',text_min,text_max);
       });
   });
 
   $(document).ready(function() {
     var text_min = 100;
     var text_max = 2000;
-    displaylength();
+    displaylength('#description','#textarea_feedback',text_min,text_max);
 
-    function displaylength(){
-      var text_length = $('#description').val().length;
-      var min_text_remaining  = text_min - text_length
-      var text_remaining = text_max - text_length;
-      if (text_length < 100 && text_length>0){
-        $('#textarea_feedback').html('You must write ' + min_text_remaining + ' more characters before submitting.')
-      } else if (text_length >= 100) {
-        $('#textarea_feedback').html(text_remaining + '/2000 maximum characters remaining.');
-      }
-    }
-
-      $('#description').keyup(function() {
-        displaylength();
-      });
+    $('#description').keyup(function() {
+      displaylength('#description','#textarea_feedback',text_min,text_max);
+    });
   });
 
 </script>
