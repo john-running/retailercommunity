@@ -1,6 +1,6 @@
 #app.py
 from project import app,db
-from flask import render_template,redirect,request,url_for,flash,abort
+from flask import render_template,redirect,request,url_for,flash,abort, make_response
 from flask_login import login_user,login_required,logout_user,current_user
 from project.models import User,Product,Purchase,Review
 from project.forms import LoginForm, RegistrationForm,ProductForm,ReviewForm,ModerateReviewForm,ForgotPasswordForm,ResetPasswordForm,ProfileForm
@@ -11,6 +11,10 @@ import os
 from datetime import datetime, timedelta
 from sendgrid.helpers.mail import *
 from sqlalchemy import desc
+
+from io import StringIO
+import csv
+
 
 sendgridkey = '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'
 
@@ -113,8 +117,8 @@ def moderator_feedback():
 @login_required
 def list_reviews():
     reviews = Review.query.filter_by(user_id = current_user.id).order_by(desc(Review.creationdate))
-    #reviews = Review.query.filter(Review.creationdate >= '2018-12-09')
     return render_template('reviews.html', reviews=reviews)
+
 
 
 @app.route('/profile')
@@ -217,6 +221,23 @@ def termsandconditions():
     return render_template('terms.html')
 
 
+@app.route('/download')
+@login_required
+def download():
+    reviews = Review.query.filter_by(user_id = current_user.id).order_by(Review.creationdate)
+    # mylist = [[1,2,3,4],[1,2,3,4],[5,6,7,8]]
+    si = StringIO()
+    cw = csv.writer(si)
+    firstrow = ['ID','Creation Date','Product Name','Product SKU','Heading','Review','Star Rating (1-5)','Status','Feedback']
+    cw.writerow(firstrow)
+    for review in reviews:
+        rowlist = [review.id,review.creationdate,review.product.name,review.product.sku,review.heading,review.description,review.starrating,review.status,review.feedback]
+        cw.writerow(rowlist)
+
+    output = make_response(si.getvalue())
+    output.headers["Content-Disposition"] = "attachment; filename=export.csv"
+    output.headers["Content-type"] = "text/csv"
+    return output
 
 
 
