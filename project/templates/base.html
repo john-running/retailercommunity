@@ -69,14 +69,14 @@
 <div id="fillme"></div>
 <!-- START Bootstrap-Cookie-Alert -->
 <div class="alert text-left cookiealert" role="alert">
-  <div class="col-sm-10 small-left">This site and our services use cookies and other technologies to collect and/or store information on your computer. Some are essential to make our site work while others improve your experience. <a href="#" target="_blank">Privacy and Cookie Policy</a></div>
+  <div class="col-sm-10 small-left">This site and our services use cookies and other technologies to collect and/or store information on your computer. Some are essential to make our site work while others improve your experience. <a href="{{url_for('privacy')}}" target="_blank" class="white">Privacy and Cookie Policy</a></div>
   <div class ="col-sm-2 small-right text-center"><button type="button" class="btn btn-outline-black" aria-label="Close">Got it</button></div>
 </div>
 <!-- END Bootstrap-Cookie-Alert -->
 </div>
     <footer class="footer">
       <div class="container" align="center">
-        <a href="#">About</a> | <a href="#">Privacy & Cookies policy</a> | <a href="#">Terms & Conditions</a>
+        <a href="{{url_for('about')}}">About</a> | <a href="{{url_for('privacy')}}">Privacy & Cookies policy</a> | <a href="{{url_for('termsandconditions')}}">Terms & Conditions</a>
         <span class="text-muted"></span>
       </div>
     </footer>

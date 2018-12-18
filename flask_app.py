@@ -204,6 +204,21 @@ def reset_password():
         flash('Something went wrong. Please try again.')
         return redirect(url_for('forgot_password'))
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/privacyandcookiepolicy')
+def privacy():
+    return render_template('privacy.html')
+
+@app.route('/termsandconditions')
+def termsandconditions():
+    return render_template('terms.html')
+
+
+
+
 
 #####
 #Resources below intended to be used to populate database do admin stuff (will not make it into production MVP)

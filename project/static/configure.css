@@ -45,9 +45,22 @@ a:hover {
     text-decoration: underline;
 }
 
+a.white {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+a.white:hover {
+    color: rgba(237,52, 49);
+    text-decoration: underline;
+}
+
+
 h4 {
     color: rgba(10,85, 157, 1);
 }
+
+
 
 .h1-home{
     padding: 1.25rem;
@@ -95,6 +108,7 @@ h4 {
 .btn-outline-primary:hover,
 .btn-outline-primary.active{
     background-color: rgba(10,85, 157, 1);
+
 }
 
 
@@ -110,7 +124,7 @@ h4 {
 .btn-outline-black.active{
   color: #ffffff;
   border-color:#ffffff;
-  background-color: #000000;
+  background-color: rgba(237,52, 49);
   text-decoration: none;
 }
 
