@@ -176,6 +176,15 @@ h4 {
   padding-right: 10px;
 }
 
+.table-display{
+  display: table;
+}
+
+.cell-display{
+  vertical-align: middle;
+  display: table-cell;
+}
+
 .bottompadding{
   padding-bottom: 5px;
 }

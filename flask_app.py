@@ -157,10 +157,12 @@ def update_profile():
 @app.route('/thanks')
 @login_required
 def thanks():
-    reviews = Review.query.filter_by(user_id = current_user.id)
+    reviews = Review.query.filter_by(user_id = current_user.id).order_by(desc(Review.creationdate))
     reviewsthisweek = reviews.filter(Review.creationdate >= datetime.today() - timedelta(days=7))
     reviewthisweekcount = reviewsthisweek.count()
-    return render_template('thanks.html', reviewthisweekcount = reviewthisweekcount)
+    lastreview = reviews.first()
+    reviewpoints = lastreview.product.reviewpoints
+    return render_template('thanks.html', reviewthisweekcount = reviewthisweekcount, reviewpoints = reviewpoints)
 
 @app.route('/forgotpassword',methods=['GET', 'POST'])
 def forgot_password():
@@ -239,9 +241,6 @@ def download():
     output.headers["Content-type"] = "text/csv"
     return output
 
-@app.route('/speechtest')
-def speechtest():
-    return render_template('speechtest.html')
 
 #####
 #Resources below intended to be used to populate database do admin stuff (will not make it into production MVP)
