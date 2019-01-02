@@ -75,7 +75,7 @@
             <br>
             </div>
             <div class="form-group">
-            {{form.description.label}}&nbsp;&nbsp;<a href="#review-description" onclick="startDictation();"><img src="/static/microphone.png" alt="Record" width=40 class="bottompadding"></a><br>
+            {{form.description.label}}&nbsp;&nbsp;<a href="#review-description" onclick="startDictation();"><img src="/static/microphone.png" alt="Record" width=40 class="bottompadding"></a><div id="RecordingStatus" class="recording"></div><br>
             {% if form.description.errors[0]|length > 1 %}
               {{form.description(class_='form-control is-invalid',rows='4')}}
               <small id="errortext" class="text-danger"><div id="textarea_feedback" class="small-left">You must write at least 100 characters.</div></small>
@@ -179,13 +179,14 @@
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.lang = "en-US";
+      $('#RecordingStatus').html('Recording')
       recognition.start();
 
       recognition.onresult = function(e) {
         document.getElementById('description').value
                                  += e.results[0][0].transcript + " ";
-
         displaylength('#description','#textarea_feedback',text_min,text_max);
+        $('#RecordingStatus').html('')
         recognition.stop();
 
       };
