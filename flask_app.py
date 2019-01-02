@@ -239,7 +239,9 @@ def download():
     output.headers["Content-type"] = "text/csv"
     return output
 
-
+@app.route('/speechtest')
+def speechtest():
+    return render_template('speechtest.html')
 
 #####
 #Resources below intended to be used to populate database do admin stuff (will not make it into production MVP)
