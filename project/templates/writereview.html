@@ -188,9 +188,11 @@
         displaylength('#description','#textarea_feedback',text_min,text_max);
         $('#RecordingStatus').html('')
         recognition.stop();
-
       };
 
+      recognition.onend = function() {
+        $('#RecordingStatus').html('')
+      };
     }
     else {
       alert('Unfortunately, your browser does not support voice to text.  Please use the text area field to enter your review.')
