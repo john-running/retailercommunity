@@ -174,7 +174,7 @@
     if (window.hasOwnProperty('webkitSpeechRecognition')) {
       var recognition = new webkitSpeechRecognition();
       recognition.continuous = false;
-      recognition.interimResults = true;
+      recognition.interimResults = false;
       recognition.lang = "en-US";
       recognition.start();
 
