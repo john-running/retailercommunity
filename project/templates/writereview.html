@@ -75,7 +75,7 @@
             <br>
             </div>
             <div class="form-group">
-            {{form.description.label}}<br>
+            {{form.description.label}}&nbsp;&nbsp;&nbsp;<a href="#" onclick="startDictation();">Record Review</a><br>
             {% if form.description.errors[0]|length > 1 %}
               {{form.description(class_='form-control is-invalid',rows='8')}}
               <small id="errortext" class="text-danger"><div id="textarea_feedback" class="small-left">You must write at least 100 characters.</div></small>
@@ -83,7 +83,6 @@
               {{form.description(class_='form-control',rows='8')}}
               <small id="emailHelp" class="form-text text-muted"><div id="textarea_feedback" class="small-left">You must write at least 100 characters.</div></small>
             {% endif %}
-            <a href="#" onclick="startrecognition();">Record Review</a>
             </div>
             <br>
             {{form.starrating}}
@@ -169,47 +168,24 @@
     });
   });
 
-  var recognition = new webkitSpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.lang = "en-US";
-  recognition.onerror = function(event) {
-      console.error(event);
-  };
 
-  recognition.onstart = function() {
-      console.log('Speech recognition service has started');
-  };
+  function startDictation() {
 
-  recognition.onend = function() {
-      console.log('Speech recognition service disconnected');
-  };
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      var recognition = new webkitSpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = "en-US";
+      recognition.start();
 
-  recognition.onresult = function(event) {
-      var interim_transcript = '';
-      var final_transcript = '';
+      recognition.onresult = function(e) {
+        document.getElementById('description').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
 
-      for (var i = event.resultIndex; i < event.results.length; ++i) {
-          // Verify if the recognized text is the last with the isFinal property
-          if (event.results[i].isFinal) {
-              final_transcript += event.results[i][0].transcript;
-          } else {
-              interim_transcript += event.results[i][0].transcript;
-          }
-      }
+      };
 
-      // Choose which result may be useful for you
-
-      // console.log("Interim: ", interim_transcript);
-      //
-      // console.log("Final: ",final_transcript);
-      //
-      // console.log("Simple: ", event.results[0][0].transcript);
-      document.getElementById('description').value= event.results[0][0].transcript;
-  };
-
-  function startrecognition(){
-    recognition.start();
+    }
   }
 
 
