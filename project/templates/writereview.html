@@ -78,7 +78,8 @@
             <table>
               <tr>
                 <td>{{form.description.label}}&nbsp;&nbsp;</td>
-                <td><a href="#review-description" onclick="startDictation();"><img src="/static/microphone.png" alt="Record" width=40 class="bottompadding rightpadding"></a></td>
+
+                <td><div id="RecordingSupported"><a href="#review-description" onclick="startDictation();"><img src="/static/microphone.png" alt="Record" width=40 class="bottompadding rightpadding"></a></div></td>
                 <td><div id="RecordingStatus" class="recording"></div></td>
               </tr>
             </table>
@@ -103,6 +104,10 @@
 </div>
 
   <script type="text/javascript">
+  if (window.hasOwnProperty('webkitSpeechRecognition') == 0) {
+      $('#RecordingSupported').html(' ');
+  }
+
   var dict = {
     0: " ",
     1: "1 Star - Poor",
