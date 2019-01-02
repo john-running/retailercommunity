@@ -75,7 +75,7 @@
             <br>
             </div>
             <div class="form-group">
-            {{form.description.label}}&nbsp;&nbsp;&nbsp;<a href="#review-description" onclick="startDictation();"><img src="/static/microphone.png" alt="Record" width=25></a><br>
+            {{form.description.label}}&nbsp;&nbsp;<a href="#review-description" onclick="startDictation();"><img src="/static/microphone.png" alt="Record" width=40 class="bottompadding"></a><br>
             {% if form.description.errors[0]|length > 1 %}
               {{form.description(class_='form-control is-invalid',rows='4')}}
               <small id="errortext" class="text-danger"><div id="textarea_feedback" class="small-left">You must write at least 100 characters.</div></small>
@@ -174,6 +174,8 @@
 
     if (window.hasOwnProperty('webkitSpeechRecognition')) {
       var recognition = new webkitSpeechRecognition();
+      var text_min = 100;
+      var text_max = 2000;
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.lang = "en-US";
@@ -182,13 +184,15 @@
       recognition.onresult = function(e) {
         document.getElementById('description').value
                                  += e.results[0][0].transcript + " ";
+
+        displaylength('#description','#textarea_feedback',text_min,text_max);
         recognition.stop();
 
       };
 
     }
     else {
-      alert('Your browser does not support this feature.')
+      alert('Unfortunately, your browser does not support voice to text.  Please use the text area field to enter your review.')
     }
   }
 
