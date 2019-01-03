@@ -194,9 +194,15 @@
       recognition.start();
 
       recognition.onresult = function(e) {
-        var cursorPosition = $('#description').prop("selectionStart");
+        var thestring = $('description').value;
+        if ($("#El").matches(":focus")){
+          var cursorPosition = $('#description').prop("selectionStart");
+        } else {
+          var cursorPosition = thestring.length;
+        }
+        
         alert (cursorPosition);
-        var thestring = document.getElementById('description').value;
+
         var beforeCursor = thestring.substring(0, cursorPosition);
         var afterCursor = thestring.substring(cursorPosition,thestring.length);
 
