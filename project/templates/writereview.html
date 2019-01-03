@@ -197,9 +197,11 @@
         var thestring = document.getElementById('description').value;
         alert(thestring);
         if (document.getElementById('description').matches(":focus")){
+          alert('has focus');
           var cursorPosition = $('#description').prop("selectionStart");
         } else {
           var cursorPosition = thestring.length;
+          alert('no focus');
         }
 
         var beforeCursor = thestring.substring(0, cursorPosition);
