@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="jumbotron tescoblue">
-  <h1 align="center" class="bigwhite"><br />That was a succes,<br /> {{current_user.fname}}!</h1>
+  <h1 align="center" class="bigwhite"><br />That was a success,<br /> {{current_user.fname}}!</h1>
   </div>
   <div class="redcircle" align="center">
       <img src="static/check.png" alt="">
@@ -14,6 +14,7 @@
 
   {% if reviewthisweekcount < 5 %}
     <div align="center"><a href="{{url_for('home')}}" class="btn btn-primary bigbutton">REVIEW MORE</a></div>
+    <br /><br /> 
   {% else %}
     <p align="center" class="thankyoutext">You have no more products to review right now - please check back weekly to review more products. We will send you email notifications when there are more products to review.</p>
   {% endif %}
