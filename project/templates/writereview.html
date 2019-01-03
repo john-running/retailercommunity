@@ -195,12 +195,12 @@
 
       recognition.onresult = function(e) {
         var cursorPosition = $('#description').prop("selectionStart");
-        var thestring = $('#description').value;
+        var thestring = document.getElementById('description').value;
         var beforeCursor = thestring.substring(0, cursorPosition);
         var afterCursor = thestring.substring(cursorPosition,thestring.length);
         var newstring =  beforeCursor + " " + e.results[0][0].transcript + afterCursor + " ";
         $('#description').value = newstring;
-        $('#description').prop("selectionStart") = newstring.length;
+        //$('#description').prop("selectionStart") = newstring.length;
         displaylength('#description','#textarea_feedback',text_min,text_max);
         $('#RecordingStatus').html('')
         recognition.stop();
