@@ -195,6 +195,7 @@
 
       recognition.onresult = function(e) {
         var thestring = document.getElementById('description').value;
+        alert(thestring);
         if (document.getElementById('description').matches(":focus")){
           var cursorPosition = $('#description').prop("selectionStart");
         } else {
