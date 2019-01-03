@@ -201,7 +201,8 @@
         var afterCursor = thestring.substring(cursorPosition,thestring.length);
         var newstring = beforeCursor + " " + e.results[0][0].transcript + afterCursor + " ";
         document.getElementById('description').value = newstring;
-        $('#description').prop("selectionStart") = newstring.length;
+        $('#description').focus()
+        $('#description').prop("selectionEnd", newstring.length);
         displaylength('#description','#textarea_feedback',text_min,text_max);
         $('#RecordingStatus').html('')
         recognition.stop();
