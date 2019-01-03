@@ -199,8 +199,9 @@
         var thestring = document.getElementById('description').value;
         var beforeCursor = thestring.substring(0, cursorPosition);
         var afterCursor = thestring.substring(cursorPosition,thestring.length);
-
-        document.getElementById('description').value = beforeCursor + " " + e.results[0][0].transcript + afterCursor + " ";
+        var newstring = beforeCursor + " " + e.results[0][0].transcript + afterCursor + " ";
+        document.getElementById('description').value = newstring;
+        $('#description').prop("selectionStart") = newstring.length;
         displaylength('#description','#textarea_feedback',text_min,text_max);
         $('#RecordingStatus').html('')
         recognition.stop();
