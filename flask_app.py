@@ -29,11 +29,11 @@ def home():
         reviewpoints = 0
         reviewsthisweek = reviews.filter(Review.creationdate >= datetime.today() - timedelta(days=7))
         reviewthisweekcount = reviewsthisweek.count()
-
         for rev in approvedreviews:
             reviewpoints = reviewpoints + rev.product.reviewpoints
         if purchases is not None and reviewthisweekcount < 5:  #user still has products to review
-            return render_template('home.html',purchases=purchases,reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
+            product_description = "<br />".join(purchases.product.description.split("\n"))
+            return render_template('home.html',purchases=purchases,product_description = product_description, reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
         return render_template('home.html',reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
     return render_template('home.html')
 
