@@ -193,3 +193,52 @@ h4 {
 color: red;
 font-weight: 600;
 }
+
+.tescoblue{
+  background-color: rgba(10,85, 157, 1);
+  border-radius: 0 !important;
+}
+
+.bigwhite{
+  color: #ffffff;
+  font-size: 2.1em;
+  font-weight: 200;
+  padding-bottom: 25px;
+}
+
+.redcircle{
+  position: relative;
+  top: -60px;
+}
+
+.thankyoutext{
+  color: rgba(138,137,137);
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.red{
+  color: rgba(237,52, 49);
+}
+
+.bigbutton{
+  color: #ffffff;
+  border-color:rgba(10,85, 157);
+  background-color: rgba(10,85, 157);
+  text-decoration: none;
+  letter-spacing: 3px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 30px ;
+
+}
+
+.bigbutton:hover,
+.bigbutton.active{
+  color: #ffffff;
+  border-color:#ffffff;
+  background-color: rgba(237,52, 49);
+  text-decoration: none;
+}

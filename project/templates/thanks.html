@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="jumbotron">
-  <h4>Congratultions!</h4>
-    <br>
-    <div class="table-display"><span class="cell-display"><img src="/static/winning.png" alt="Winning" class="rightpadding" align="left" width="100"></span><span class="cell-display">Thanks {{current_user.fname}}.  Your review has been submitted. After it gets approved, you will recieve {{reviewpoints}} points for your review, and you are helping other Tesco customers make more informed buying decisions.</span></div>
-    <br>
-    <div class="table-display"><span class="cell-display"><img src="/static/in-process.png" alt="In Process" class="rightpadding" align="left" width="100"></span><span class="cell-display">Your review is now in our moderation queue. After it gets approved, it will be sent for display on Tesco's web site. The process can take up to a week.</span> </div>
-    <br>
+  <div class="jumbotron tescoblue">
+  <h1 align="center" class="bigwhite"><br />That was a succes,<br /> {{current_user.fname}}!</h1>
+  </div>
+  <div class="redcircle" align="center">
+      <img src="static/check.png" alt="">
+  </div>
+  <div>
+    <p align="center" class="thankyoutext">{{current_user.fname}}, your review has been submitted.</p>
+    <p align="center" class="thankyoutext">After it is approved by a moderator,<br /> you will receive <span class="thankyoutext red">{{reviewpoints}} Clubcard points</span>.</p>
+    <p align="center" class="thankyoutext">Thank you.<br /><br /></p>
+  </div>
+
   {% if reviewthisweekcount < 5 %}
-    <div class="table-display"><span class="cell-display"><img src="/static/take-action.png" alt="In Process" class="rightpadding" align="left" width="100"></span><span class="cell-display">You have more products to review - <a href="{{url_for('home')}}">review more products now.</a></span> </div>
+    <div align="center"><a href="{{url_for('home')}}" class="btn btn-primary bigbutton">REVIEW MORE</a></div>
   {% else %}
-    <div class="table-display"><span class="cell-display"><img src="/static/take-action.png" alt="In Process" class="rightpadding" align="left" width="100"></span><span class="cell-display">You have no more products to review right now - please check back weekly to review more products. We will send you email notifications when there are more products to review.</span> </div>
+    <p align="center" class="thankyoutext">You have no more products to review right now - please check back weekly to review more products. We will send you email notifications when there are more products to review.</p>
   {% endif %}
 
 
-  </div>
+
 
 {% endblock %}
