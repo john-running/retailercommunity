@@ -10,7 +10,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">{{purchases.product.name}}</h5>
-                    <p class="card-text"><div class="col-sm-4"><img src="{{purchases.product.image}}" width="70%" align="left" class="rightpadding"></div>{{purchases.product.description}}</p>
+                    <p class="card-text"><div class="col-sm-4"><img src="{{purchases.product.image}}" width="70%" align="left" class="rightpadding"></div>{{product_description|safe}}</p>
                     <a href="writereview?id={{purchases.product.id}}" class="btn btn-outline-primary">Write Review</a>
                   </div>
                 </div>
