@@ -190,9 +190,7 @@
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.lang = "en-US";
-      $('#RecordingStatus').html('Recording')
       recognition.start();
-
       recognition.onresult = function(e) {
         var cursorPosition = $('#description').prop("selectionStart");
         var thestring = document.getElementById('description').value;
@@ -207,7 +205,9 @@
         $('#RecordingStatus').html('')
         recognition.stop();
       };
-
+      recognition.onstart = function() {
+          $('#RecordingStatus').html('Recording');
+      };
       recognition.onend = function() {
         $('#RecordingStatus').html('')
       };
