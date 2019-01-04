@@ -204,7 +204,7 @@
         recognition.stop();
       };
       recognition.onstart = function() {
-          $('#RecordingStatus').html('Recording &nbsp;<a href="#review-description" onclick="stopDictation();"><img src="/static/stop.png" alt="stop" height="50" class="bottompadding rightpadding"></a>' );
+          $('#RecordingStatus').html('&nbsp;<a href="#review-description" onclick="stopDictation();"><img src="/static/stop.png" alt="stop" height="50" class="bottompadding rightpadding"></a> Recording' );
       };
       recognition.onend = function() {
         $('#RecordingStatus').html('')
