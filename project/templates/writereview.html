@@ -206,7 +206,7 @@
         recognition.stop();
       };
       recognition.onstart = function() {
-          $('#RecordingStatus').html('Recording <a href="#review-description" onclick="recognition.stop()">Stop</a>' );
+          $('#RecordingStatus').html('Recording <a href="#review-description" onclick="stopDictation();">Stop</a>' );
       };
       recognition.onend = function() {
         $('#RecordingStatus').html('')
@@ -216,7 +216,9 @@
       alert('Unfortunately, your browser does not support voice to text.  Please use the text area field to enter your review.')
     }
   }
-
-
+  function stopDictation() {
+    recognition.stop();
+    $('#RecordingStatus').html('')
+  }
 </script>
 {% endblock %}
