@@ -206,7 +206,7 @@
         recognition.stop();
       };
       recognition.onstart = function() {
-          $('#RecordingStatus').html('Recording');
+          $('#RecordingStatus').html('Recording <a href="#review-description" onclick="recognition.stop();">Stop</a>' );
       };
       recognition.onend = function() {
         $('#RecordingStatus').html('')
