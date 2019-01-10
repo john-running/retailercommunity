@@ -17,6 +17,9 @@ body {
   background-color: #ffffff;
 }
 
+.jumbotron{
+  background-color: #FFFFFF;
+}
 
 .jumbotron-cover{
   background-image:
@@ -53,6 +56,13 @@ a.white {
 a.white:hover {
     color: rgba(237,52, 49);
     text-decoration: underline;
+}
+
+a.arrowlink{
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: .8px;
+  font-size: .8em;
 }
 
 
@@ -135,6 +145,7 @@ h4 {
 /* change the background color */
 .navbar-custom {
     background-color: #ff5500;
+    border-bottom: 4px solid rgba(10,85, 157, 1);
 }
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
@@ -200,13 +211,43 @@ font-weight: 700;
   border-radius: 0 !important;
 }
 
+.tescored{
+  background-color: rgba(237,52, 49);
+  border-radius: 0 !important;
+}
+
 .bigwhite{
   color: #ffffff;
   font-size: 2.1em;
   font-weight: 200;
   padding-bottom: 25px;
 }
+.medwhite{
+  padding-top: 20px;
+  color: #ffffff;
+  font-size: 1.3em;
+  font-weight: 500;
+  height: 90px;
+}
 
+.narrowwhite {
+  padding-top: 10px;
+  color: #ffffff;
+  font-size: .9em;
+  font-weight: 100;
+  letter-spacing: 1px;
+
+}
+
+.subheading {
+  padding-top: 15px;
+  color: #ffffff;
+  font-size: 1em;
+  font-weight: 400;
+  height: 50px;
+  border-radius: 0;
+  letter-spacing: 1px
+}
 .redcircle{
   position: relative;
   top: -60px;
@@ -242,4 +283,17 @@ font-weight: 700;
   border-color:#ffffff;
   background-color: rgba(237,52, 49);
   text-decoration: none;
+}
+
+.maincontent{
+  padding: 20px;
+}
+
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.verticalLine {
+  border-left:  1px solid #ffffff;
 }

@@ -1,58 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if current_user.is_authenticated %}
-        {% if purchases %}
-        <div class="jumbotron">
-            <h4>Hi {{current_user.nickname}},</h4>
-            <p>Here's the next product we'd love for you to review:</p>
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">{{purchases.product.name}}</h5>
-                    <p class="card-text"><div class="col-sm-4"><img src="{{purchases.product.image}}" width="70%" align="left" class="rightpadding"></div>{{product_description|safe}}</p>
-                    <a href="writereview?id={{purchases.product.id}}" class="btn btn-outline-primary">Write Review</a>
-                  </div>
-                </div>
+{% if current_user.is_authenticated %}
+    <div>
+      <div class="container-fluid tescoblue">
+        <div class="row">
+            <div class="col-6 col-sm-6 medwhite">Hi, {{current_user.nickname}}</div>
+            <div class="col-6 col-sm-6 p-0">
+              <div class="container-fluid">
+              <div class="row">
+                <div class="col-7 col-sm-4 col-md-3 narrowwhite verticalLine">CLUBCARD<br />POINTS<br />EARNED</div>
+                <div class="medwhite col-5 col-sm-8 col-md-9">{{reviewpoints}}</div>
               </div>
-              </div>
-              <br>
-        {% else %}
-          <div class="jumbotron">
-            <h4>Hi {{current_user.nickname}},</h4>
-            {% if reviewthisweekcount == 5%}
-            <p>Looks like you have submitted the maximum number of reviews for the week. Please check back again next week.</p>
-            {% else %}
-              <p>Looks like we don't have any products for you to review right now.  Please check back later.</p>
-            {% endif %}
-        {% endif %}
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title" Align="center">{{reviewcount}}</h5>
-                    <p class="card-text" Align="center"><a href="{{url_for('list_reviews')}}">Total Reviews</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title" Align="center">{{reviewthisweekcount}}</h5>
-                    <p class="card-text" Align="center"><a href="{{url_for('list_reviews')}}">Reviews This Week</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title" Align="center">{{reviewpoints}}</h5>
-                    <p class="card-text" Align="center"><a href="{{url_for('profile')}}">Rewards Points Earned</a></p>
-                  </div>
-                </div>
               </div>
             </div>
         </div>
+      </div>
+
+    {%if purchases%}
+    <div class="container-fluid tescored">
+      <div class="row">
+        <div class="col-12 col-sm-12 subheading">Products To Review</div>
+      </div>
+    </div>
+    <br/>
+    {% for item in purchases%}
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-4 col-sm-3 col-md-2 p-1"><img src="{{item.product.image}}" width="80%" align="left"></div>
+          <div class="col-5 col-sm-6 col-md-7 p-0"><strong>{{item.product.name}}</strong><br />Earn <strong>{{item.product.reviewpoints}}</strong> Nectar points</div>
+          <div class="col-3 col-sm-3 col-md-3"><br /><a href="writereview?id={{item.product.id}}" class="arrowlink">REVIEW&nbsp;></a></div>
+      </div>
+      <div class="row">
+        <div class="col-11 col-sm-10"><hr></div>
+        <div class="col-1 col-sm-2"></div>
+    </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+      {% if reviewthisweekcount == 5%}
+      <p class= 'pl-5 pt-5'>You have submitted the maximum number of reviews for the week.</p>
+      <p class= 'pl-5'>Please check back again next week.</p>
+      {% else %}
+      <p class= 'pl-5 pt-5'>We don't have any products for you to review right now.</p>
+      <p class= 'pl-5'>Please check back later.</p>
+      {% endif %}
+    {% endif %}
     {% else %}
       <div class="jumbotron-cover">
         <p><br><br></p>

@@ -21,7 +21,6 @@ sendgridkey = 'SG.cV9TqaPkT--JHM5i0FZl0w.HRY6YsoQE8JTK58GdjPjqz_up60FZ-rNXl5oJ-e
 @app.route('/')
 def home():
     if current_user.is_authenticated:
-        purchases = Purchase.query.filter_by(user_id = current_user.id).filter_by(hasreview=0).first()
         reviews = Review.query.filter_by(user_id = current_user.id)
         reviewcount = reviews.count()
         approvedreviews = reviews.filter_by(status = "Approved")
@@ -29,11 +28,11 @@ def home():
         reviewpoints = 0
         reviewsthisweek = reviews.filter(Review.creationdate >= datetime.today() - timedelta(days=7))
         reviewthisweekcount = reviewsthisweek.count()
+        purchases = Purchase.query.filter_by(user_id = current_user.id).filter_by(hasreview=0).limit(5-reviewthisweekcount).all()
         for rev in approvedreviews:
             reviewpoints = reviewpoints + rev.product.reviewpoints
         if purchases is not None and reviewthisweekcount < 5:  #user still has products to review
-            product_description = "<br />".join(purchases.product.description.split("\n"))
-            return render_template('home.html',purchases=purchases,product_description = product_description, reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
+            return render_template('home.html',purchases=purchases,reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
         return render_template('home.html',reviewcount = reviewcount, reviewthisweekcount = reviewthisweekcount, approvedreviewcount = approvedreviewcount, reviewpoints = reviewpoints)
     return render_template('home.html')
 
