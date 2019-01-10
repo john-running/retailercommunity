@@ -121,6 +121,8 @@
       $('#counter').html(dict[document.getElementById('starrating').value])
       var $rateYo = $("#rateYo").rateYo({
         precision: 0,
+        normalFill: "#D8D8D8",
+        ratedFill: "#ED3431",
         rating: document.getElementById('starrating').value,
         onChange: function (rating, rateYoInstance) {
           $('#counter').html(dict[rating])
@@ -129,6 +131,8 @@
     } else {
       var $rateYo = $("#rateYo").rateYo({
         precision: 0,
+        normalFill: "#D8D8D8",
+        ratedFill: "#ED3431",
         onChange: function (rating, rateYoInstance) {
           $('#counter').html(dict[rating])
           }
