@@ -184,7 +184,7 @@
       var text_min = 100;
       var text_max = 2000;
       recognition.continuous = false;
-      recognition.interimResults = false;
+      recognition.interimResults = true;
       recognition.lang = "en-US";
       recognition.start();
       recognition.onresult = function(e) {
