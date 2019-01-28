@@ -27,7 +27,7 @@
               {{form.password(class_='form-control')}}
             {% endif %}
             </div>
-            
+
             {{form.submit(class_='btn btn-outline-primary')}}
           </form>
         </div>
@@ -36,8 +36,8 @@
     </div>
 
   <br><br>
-  <p>Not signed up yet? <a href="{{url_for('register')}}">Register here.</a></p>
-  <p><a href="{{url_for('forgot_password')}}">Forgot Password?</a></p>
+  <p>Not signed up yet? <a href="{{url_for('main.register')}}">Register here.</a></p>
+  <p><a href="{{url_for('main.forgot_password')}}">Forgot Password?</a></p>
   </div>
 
 {% endblock %}

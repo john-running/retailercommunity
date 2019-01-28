@@ -24,3 +24,10 @@ Migrate(app,db)
 login_manager.init_app(app)
 
 login_manager.login_view = 'login' # sets the view user needs to go to in order to log in
+
+from project.main.views import main_blueprint
+from project.admin.views import admin_blueprint
+
+app.register_blueprint(admin_blueprint, url_prefix='/admin')
+
+app.register_blueprint(main_blueprint, url_prefix=None)

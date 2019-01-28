@@ -2,20 +2,20 @@
 {% block content %}
 {% if nouser %}
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="{{url_for('admin')}}">Admin</a></li>
+  <li class="breadcrumb-item"><a href="{{url_for('admin.admin')}}">Admin</a></li>
   <li class="breadcrumb-item active" aria-current="page">Products</li>
 </ol>
 {% else %}
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="{{url_for('admin')}}">Admin</a></li>
-  <li class="breadcrumb-item"><a href="{{url_for('all_users')}}">Users</a></li>
-  <li class="breadcrumb-item"><a href="{{url_for('list_purchases')}}?uid={{user.id}}">Purchases</a></li>
-  <li class="breadcrumb-item active" aria-current="page">Purchases</li>
+  <li class="breadcrumb-item"><a href="{{url_for('admin.admin')}}">Admin</a></li>
+  <li class="breadcrumb-item"><a href="{{url_for('admin.all_users')}}">Users</a></li>
+  <li class="breadcrumb-item"><a href="{{url_for('admin.list_purchases')}}?uid={{user.id}}">Purchases</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Add Purchases</li>
 </ol>
 {% endif %}
 <div class="jumbotron">
   <h4>Products</h4>
-  <p><a href="{{url_for('addproduct')}}">Add product to catalog</a></p>
+  <p><a href="{{url_for('admin.addproduct')}}">Add product to catalog</a></p>
   <div class="row">
   <div class="col-sm-12">
     <div class="card">

@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{{url_for('admin')}}">Admin</a></li>
+    <li class="breadcrumb-item"><a href="{{url_for('admin.admin')}}">Admin</a></li>
     <li class="breadcrumb-item active" aria-current="page">Reviews</li>
   </ol>
 <div class="jumbotron">
   <h4>User Reviews</h4>
   <br>
-  <strong>Filter by:</strong> <a href="{{url_for('all_reviews')}}?status=All">All</a> | <a href="{{url_for('all_reviews')}}?status=Pending">Pending</a>| <a href="{{url_for('all_reviews')}}?status=Approved">Approved</a> | <a href="{{url_for('all_reviews')}}?status=Rejected">Rejected</a><br><br>
+  <strong>Filter by:</strong> <a href="{{url_for('admin.all_reviews')}}?status=All">All</a> | <a href="{{url_for('admin.all_reviews')}}?status=Pending">Pending</a>| <a href="{{url_for('admin.all_reviews')}}?status=Approved">Approved</a> | <a href="{{url_for('admin.all_reviews')}}?status=Rejected">Rejected</a><br><br>
   <div class="row">
   <div class="col-sm-12">
     <div class="card">
