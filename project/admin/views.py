@@ -4,6 +4,7 @@ from flask_login import login_user,login_required,logout_user,current_user
 from project import db
 from project.models import User,Product,Purchase,Review
 from project.forms import ProductForm,ReviewForm,ModerateReviewForm
+import os
 import sendgrid
 from sendgrid.helpers.mail import *
 
