@@ -4,8 +4,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager  #automate management of login
-import sendgrid
-from sendgrid.helpers.mail import *
 
 
 login_manager = LoginManager()

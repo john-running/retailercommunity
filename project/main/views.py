@@ -1,10 +1,10 @@
 # project/main/views.py
 
-from project import app,db
-from flask import Blueprint,render_template,redirect,request,url_for,flash,abort, make_response
+from project import db
+from flask import Blueprint,render_template,redirect,request,url_for,flash,abort,make_response
 from flask_login import login_user,login_required,logout_user,current_user
 from project.models import User,Product,Purchase,Review
-from project.forms import LoginForm, RegistrationForm,ProductForm,ReviewForm,ModerateReviewForm,ForgotPasswordForm,ResetPasswordForm,ProfileForm
+from project.forms import LoginForm,RegistrationForm,ReviewForm,ForgotPasswordForm,ResetPasswordForm,ProfileForm
 from werkzeug.security import generate_password_hash
 
 import sendgrid
@@ -17,7 +17,6 @@ from io import StringIO
 import csv
 
 main_blueprint = Blueprint('main',__name__,template_folder='templates/main')
-
 
 sendgridkey = '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'
 
@@ -46,7 +45,6 @@ def logout():
     flash("You have logged out!")
     return redirect(url_for('main.home'))
 
-
 @main_blueprint.route('/login',methods=['GET','POST'])
 def login():
     form = LoginForm()
@@ -65,7 +63,6 @@ def login():
 @main_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
-
     if form.validate_on_submit():
         user = User(email=form.email.data.lower(),
                     fname=form.fname.data,
@@ -75,7 +72,6 @@ def register():
                     active = 1,
                     rewardsid=form.rewardsid.data,
                     password=form.password.data)
-
         if form.check_email(user.email):
             db.session.add(user)
             db.session.commit()
@@ -114,14 +110,11 @@ def moderator_feedback():
     review = Review.query.filter_by(id = request.args.get('id')).first()
     return render_template('moderatorfeedback.html', review=review)
 
-
 @main_blueprint.route('/reviews')
 @login_required
 def list_reviews():
     reviews = Review.query.filter_by(user_id = current_user.id).order_by(desc(Review.creationdate))
     return render_template('reviews.html', reviews=reviews)
-
-
 
 @main_blueprint.route('/profile')
 @login_required
@@ -228,7 +221,6 @@ def termsandconditions():
 @login_required
 def download():
     reviews = Review.query.filter_by(user_id = current_user.id).order_by(Review.creationdate)
-    # mylist = [[1,2,3,4],[1,2,3,4],[5,6,7,8]]
     si = StringIO()
     cw = csv.writer(si)
     firstrow = ['ID','Creation Date','Product Name','Product SKU','Heading','Review','Star Rating (1-5)','Status','Feedback']
@@ -236,7 +228,6 @@ def download():
     for review in reviews:
         rowlist = [review.id,review.creationdate,review.product.name,review.product.sku,review.heading,review.description,review.starrating,review.status,review.feedback]
         cw.writerow(rowlist)
-
     output = make_response(si.getvalue())
     output.headers["Content-Disposition"] = "attachment; filename=export.csv"
     output.headers["Content-type"] = "text/csv"
