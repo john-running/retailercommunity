@@ -18,7 +18,7 @@ import csv
 
 main_blueprint = Blueprint('main',__name__,template_folder='templates/main')
 
-sendgridkey = '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'
+sendgridkey = os.environ.get('SENDGRID_API_KEY')
 
 @main_blueprint.route('/')
 def home():

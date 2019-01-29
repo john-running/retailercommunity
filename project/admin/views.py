@@ -9,7 +9,7 @@ from sendgrid.helpers.mail import *
 
 admin_blueprint = Blueprint('admin',__name__,template_folder='templates/admin')
 
-sendgridkey = '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'
+sendgridkey = os.environ.get('SENDGRID_API_KEY')
 
 @admin_blueprint.route('/admin')
 @login_required
@@ -17,7 +17,6 @@ def admin():
     if current_user.role !="Admin":
         return redirect(url_for('home'))
     return render_template('admin.html')
-
 
 @admin_blueprint.route('/allreviews')
 @login_required
@@ -83,7 +82,6 @@ def moderate_review():
     form.feedback.data=review.feedback
 
     return render_template('moderatoreview.html', form=form, review=review)
-
 
 @admin_blueprint.route('/addproduct', methods=['GET', 'POST'])
 @login_required

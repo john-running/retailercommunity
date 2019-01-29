@@ -1,4 +1,4 @@
-#app.py
+#flask_app.py
 from project import app
 
 if __name__ == '__main__':
