@@ -2,3 +2,4 @@ dbbackups
 *.sqlite
 sendgrid.env
 *.pyc
+migrations
